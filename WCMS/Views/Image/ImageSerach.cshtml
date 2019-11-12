@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "ImageSerach";
+}
+
+
+<div id="content">
+    <section id="widget-grid">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-darken" data-widget-sortable="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false">
+                    <header role="heading">
+                        <h2> @ViewBag.Title </h2>
+                        <div class="widget-toolbar font-xs" role="menu">
+                            @ViewBag.Title
+                        </div>
+                    </header>
+
+                    <div>
+                        <table class="table table-bordered" style="margin-left:0px" >
+                            <thead>
+                                <tr role="row" class="active">
+                                    <th class="active" style="text-align:center;">대륙</th>
+                                    <th class="active" style="text-align:center;">국가</th>
+                                    <th class="active" style="text-align:center;">지역</th>
+                                    <th class="active" style="text-align:center;">세부지역</th>
+                                    <th class="active" style="text-align:center;">도시</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="txtSerach" placeholder="키워드 입력">
+                        </div>
+                        <button type="button" class="btn btn-default " id="btnSerach"> 검색 </button>
+                        <br /><br />
+                        <table class="table table-bordered" style="margin-left:0px">
+                            <tbody class="table table-hover">
+                                <tr>
+                                    <td class="active">스팟번호</td>
+                                    <td></td>
+                                    <td class="active">스팟명</td>
+                                    <td></td>
+                                    <td class="active">원어명</td>
+                                    <td colspan="3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">지역</td>
+                                    <td colspan="7" style="word-spacing:30px;">
+                                        대륙
+                                        <select id="selContinent" class="select">
+                                            <option>아시아</option>
+                                            <option>동남아</option>
+                                            <option>대양주</option>
+                                            <option>미주</option>
+                                            <option>중남미</option>
+                                            <option>유럽</option>
+                                            <option>중동</option>
+                                            <option>아프리카</option>
+                                            <option>기타</option>
+                                        </select>
+                                        지역
+                                        <select id="selArea" class="select">
+                                            <option>서유럽</option>
+                                            <option>동유럽</option>
+                                            <option>북유럽</option>
+                                            <option>지중해</option>
+                                            <option>발칸</option>
+                                            <option>기타</option>
+                                        </select>
+                                        국가
+                                        <select id="selNation" class="select">
+                                            <option>영국</option>
+                                            <option>프랑스</option>
+                                            <option>이태리</option>
+                                            <option>스위스</option>
+                                            <option>스페인</option>
+                                            <option>네덜란드</option>
+                                            <option>벨기에</option>
+                                            <option>기타</option>
+                                        </select>
+                                        세부지역
+                                        <select id="selDetailsArea" class="select">
+                                            <option>기타</option>
+                                        </select>
+                                        도시
+                                        <select id="selCity" class="select">
+                                            <option>런던</option>
+                                            <option>옥스포드</option>
+                                            <option>윈저</option>
+                                            <option>코츠월드</option>
+                                            <option>기타</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active">카테고리</td>
+                                    <td></td>
+                                    <td class="active">사진구분</td>
+                                    <td></td>
+                                    <td class="active">출처</td>
+                                    <td></td>
+                                    <td class="active">등록일</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="active">게절</td>
+                                    <td></td>
+                                    <td class="active">시간</td>
+                                    <td></td>
+                                    <td class="active">퀄리티</td>
+                                    <td></td>
+                                    <td class="active">사이즈</td>
+                                    <td>(px 이상)</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8">
+                                        <button type="button" class="btn btn-default" id="btnAccuracy">정확도</button>
+                                        <button type="button" class="btn btn-default">최신순</button>
+                                        <button type="button" class="btn btn-default">퀄리티순</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <a href="@Url.Action("ImageDetail", "Image")">
+                                <img src="~/Content/img/violate.jpg" alt="" class="img-thumbnail" width="10%">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+

@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewBag.Title = "Content Enter Category";
+
+}
+
+<div id="content">
+    <section id="widget-grid">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-darken" data-widget-sortable="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2> @ViewBag.Title </h2>
+                        <div class="widget-toolbar font-xs">
+                            @ViewBag.Title
+                        </div>
+                    </header>
+                    <div>
+                               
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="widget-body">
+                                                    <!-- Contents -->
+                                                    <!-- Search -->
+                                                    <div class="smart-form">
+                                                        <fieldset>
+                                                            <section class="col col-5">
+                                                                <div>
+                                                                    <label class="label">파일명</label>
+                                                                    <label class="input">
+                                                                        <input type="text" id="txtFileNmae" />
+                                                                    </label>
+                                                                </div>
+                                                            </section>
+                                                            <section class="col col-5">
+                                                                <div>
+                                                                    <label class="label">폴더명</label>
+                                                                    <label class="input">
+                                                                        <input type="text" id="txtFolderName" />
+                                                                    </label>
+                                                                </div>
+                                                            </section>
+                                                        </fieldset>
+                                                        <footer class="bg-color-white">
+                                                            <button type="button" class="btn btn-default" id="btnReset">Reset</button>
+                                                            <button type="button" class="btn btn-primary" id="btnSearch">Search</button>
+                                                        </footer>
+                                                    </div>
+                                                </div>
+                                                <!--// Add -->
+                                                <!-- List -->
+                                                <div class="form-horizontal">
+                                                    <fieldset>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered" id="tblContentList">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Seq</th>
+                                                                                <th>파일명</th>
+                                                                                <th>파일형식</th>
+                                                                                <th class="hideColumn">파일경로</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <!--// List -->
+                                                <!--// Contents -->
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-horizontal">
+                                                    <fieldset>
+                                                        <div class="form-group">
+                                                            <label class="col-md-12 control-label text-left"><strong>IMAGE</strong></label>
+                                                        </div>
+                                                    </fieldset>
+                                                    <fieldset>
+                                                        <div >
+                                                            <img id="imgContent" src="file:\\C:\Users\Public\Pictures\Sample Pictures\국화.jpg.JPG" />
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+
+<div class="modal" id="divModalLayer" tabindex="-1" role="dialog"></div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Search
+            $("#btnSearch").off("click");
+            $("#btnSearch").on("click", function () {
+                ContentSearch();
+            });
+
+            //Reset
+            $("#btnReset").click(function () {
+                $("#txtFileNmae").val("");
+                $("#txtFolderName").val("");
+
+            });
+
+
+
+        });
+
+        //Serach 버튼 클릭시 tblTerminalSettingList 에 조건에 해당하는 리스트 결과 조회
+        var ContentSearch = function () {
+            var data = JSON.stringify(MakeListData());
+
+            console.log(data);
+
+            $("#tblContentList").dataTable({
+                destroy: true,
+                autoWidth: true,
+                serverSide: true,
+                scrollY: "400px",
+                scrollCollapse: true,
+                ordering: false,
+                paging: false,
+                bFilter: false,
+                bInfo: false,
+                ajax: {
+                    url: "/Image/GetContentList",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        pJsonString: data
+                    },
+                    async: false,
+
+                    error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+                },
+                columns: [
+                    { "data": "Seq", "class": "cursorPointer" },
+                    { "data": "FileName", "class": "cursorPointer" },
+                    { "data": "Extension", "class": "cursorPointer" },
+                    { "data": "FilePath", "class": "hideColumn" }
+                ]
+
+            });
+
+            $("#tblContentList").off("dblclick");
+            $("#tblContentList").on("dblclick", "td", function () {
+
+                
+               // var str ="file:"+$(this).parent().find('td').eq(3).text().trim();
+                //console.log(str);
+                //$("#imgContent").attr("src",str);
+                //JSON.parse = JSON 문자열을 객체로 직렬화(파싱)해주는 함수
+                // 반대
+                //var result = JSON.stringify(airportTerminalInfo);
+
+            });
+        };
+
+        // 리스트 조회 데이터 생성
+        var MakeListData = function () {
+            var Content = new Object();
+            Content.FileName = $("#txtFileNmae").val();
+            Content.FolderName = $("#txtFolderName").val();
+
+            return Content;
+        };
+    </script>
+
+}

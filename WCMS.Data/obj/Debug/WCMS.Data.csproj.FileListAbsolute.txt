@@ -1,0 +1,5 @@
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.Data\bin\Debug\WCMS.Data.dll
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.Data\bin\Debug\WCMS.Data.pdb
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.Data\obj\Debug\WCMS.Data.csprojResolveAssemblyReference.cache
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.Data\obj\Debug\WCMS.Data.dll
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.Data\obj\Debug\WCMS.Data.pdb

@@ -1,0 +1,12 @@
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\WCMS.DAC.dll
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\WCMS.DAC.pdb
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\obj\Debug\WCMS.DAC.csprojResolveAssemblyReference.cache
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\obj\Debug\WCMS.DAC.dll
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\obj\Debug\WCMS.DAC.pdb
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\Dapper.dll
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\WCMS.Data.dll
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\WCMS.FrameWork.dll
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\WCMS.Data.pdb
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\WCMS.FrameWork.pdb
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\Dapper.pdb
+C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.DAC\bin\Debug\Dapper.xml
