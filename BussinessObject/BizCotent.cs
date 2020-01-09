@@ -12,9 +12,9 @@ namespace WCMS.Bussiness
 {
     public class BizCotent
     {
-        public List<Content> GetContentList(Content pContent)
+        public List<ContentData> GetContentList(ContentData pContent)
         {
-            return new DacContent(ConfigurationManager.ConnectionStrings["TestConnection"].ConnectionString).GetContentList(pContent);
+            return new DacContent(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetContentList(pContent);
         }
     }
 }

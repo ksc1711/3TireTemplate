@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using WCMS.FrameWork.Data.Mapper.Dapper;
 using Dapper;
 
 namespace WCMS.DAC
 {
     public abstract class DacBase : IDisposable
     {
-        private SqlConnection _sqlConnection;
-        private DapperHelper _dapperHelper;
+        private IDbConnection _sqlConnection;
 
+        /* Dapper ORM을 활용한 DB접근 Base 클래스
+          Base를 생성한것은 DB마다 접근 계정 및 DB가 다를경우를 
+          감안하여 생성. 
+             */
 
-        public SqlConnection _connection
+        public IDbConnection GetDbConnection
         {
             get
             {
@@ -25,18 +23,6 @@ namespace WCMS.DAC
             set
             {
                 _sqlConnection = value;
-            }
-        }
-
-        public DapperHelper _DapperHelper
-        {
-            get
-            {
-                return _dapperHelper;
-            }
-            set
-            {
-                _dapperHelper = value;
             }
         }
 
@@ -57,10 +43,10 @@ namespace WCMS.DAC
                 // Free any other managed objects here.
                 if (_sqlConnection != null)
                 {
+                    //_sqlConnection.Dispose();
+                    //_sqlConnection = null;
                     _sqlConnection.Dispose();
                     _sqlConnection = null;
-                    _DapperHelper.Dispose();
-                    _DapperHelper = null;
                 }
             }
 

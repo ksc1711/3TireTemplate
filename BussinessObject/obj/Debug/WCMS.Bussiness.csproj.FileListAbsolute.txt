@@ -12,3 +12,13 @@ C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\BussinessObject\bi
 C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\BussinessObject\bin\Debug\WCMS.FrameWork.pdb
 C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\BussinessObject\bin\Debug\Dapper.pdb
 C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\BussinessObject\bin\Debug\Dapper.xml
+D:\source\3TireTemplate\BussinessObject\bin\Debug\BussinessObject.dll
+D:\source\3TireTemplate\BussinessObject\bin\Debug\BussinessObject.pdb
+D:\source\3TireTemplate\BussinessObject\bin\Debug\WCMS.DAC.dll
+D:\source\3TireTemplate\BussinessObject\bin\Debug\WCMS.Data.dll
+D:\source\3TireTemplate\BussinessObject\bin\Debug\WCMS.DAC.pdb
+D:\source\3TireTemplate\BussinessObject\bin\Debug\WCMS.Data.pdb
+D:\source\3TireTemplate\BussinessObject\obj\Debug\WCMS.Bussiness.csprojAssemblyReference.cache
+D:\source\3TireTemplate\BussinessObject\obj\Debug\WCMS.Bussiness.csproj.CopyComplete
+D:\source\3TireTemplate\BussinessObject\obj\Debug\BussinessObject.dll
+D:\source\3TireTemplate\BussinessObject\obj\Debug\BussinessObject.pdb

@@ -43,11 +43,11 @@ namespace WCMS.Web.Controllers
                 settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 settings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTime;
                 //settings.Culture = new System.Globalization.CultureInfo("utf-8");
-                Content content = new Content();
+                ContentData content = new ContentData();
 
                 if (!string.IsNullOrEmpty(pJsonString))
                 {
-                    content = Newtonsoft.Json.JsonConvert.DeserializeObject<Content>(pJsonString, settings);
+                    content = Newtonsoft.Json.JsonConvert.DeserializeObject<ContentData>(pJsonString, settings);
                 }
 
                 var List = _content.GetContentList(content);

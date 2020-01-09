@@ -1,40 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
-
-using WCMS.FrameWork.Data.Mapper.Dapper;
-
 using WCMS.Data;
-using Dapper;
 
 namespace WCMS.DAC
 {
     public class DacContent : WCMS.DAC.DacBase
     {
+
         public DacContent(string connectionString)
         {
-            this._connection = new SqlConnection(connectionString);
-            this._DapperHelper = new DapperHelper(connectionString, true, false);
-        }
-        public DacContent(SqlConnection connection)
-        {
-            this._connection = connection;
-            this._DapperHelper = new DapperHelper(connection.ConnectionString, true, false);
+            this.GetDbConnection = new SqlConnection(connectionString);
         }
 
         #region Content List
-        public List<Content> GetContentList(Content pContent)
+
+        public List<ContentData> GetContentList(ContentData pContent)
         {
-
-    
-
             try
             {
+                /*
                 _DapperHelper.Connection.Open();
                 _DapperHelper.ClearParameter();
 
@@ -46,6 +31,8 @@ namespace WCMS.DAC
                     _DapperHelper.Params,
                     CommandType.StoredProcedure
                 ).ToList();
+                */
+                return null;
             }
             catch (SqlException ex)
             {
@@ -53,7 +40,7 @@ namespace WCMS.DAC
             }
             finally
             {
-                _DapperHelper.Connection.Close();
+                //_DapperHelper.Connection.Close();
             }
         }
         #endregion

@@ -6,3 +6,11 @@ C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.FrameWork\bin
 C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.FrameWork\obj\Debug\WCMS.FrameWork.csprojResolveAssemblyReference.cache
 C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.FrameWork\obj\Debug\WCMS.FrameWork.dll
 C:\Users\권순창\Documents\Visual Studio 2013\Projects\WCMS\WCMS.FrameWork\obj\Debug\WCMS.FrameWork.pdb
+D:\source\3TireTemplate\WCMS.FrameWork\bin\Debug\WCMS.FrameWork.dll
+D:\source\3TireTemplate\WCMS.FrameWork\bin\Debug\WCMS.FrameWork.pdb
+D:\source\3TireTemplate\WCMS.FrameWork\bin\Debug\Dapper.pdb
+D:\source\3TireTemplate\WCMS.FrameWork\bin\Debug\Dapper.xml
+D:\source\3TireTemplate\WCMS.FrameWork\obj\Debug\WCMS.FrameWork.csprojAssemblyReference.cache
+D:\source\3TireTemplate\WCMS.FrameWork\obj\Debug\WCMS.FrameWork.csproj.CopyComplete
+D:\source\3TireTemplate\WCMS.FrameWork\obj\Debug\WCMS.FrameWork.dll
+D:\source\3TireTemplate\WCMS.FrameWork\obj\Debug\WCMS.FrameWork.pdb
