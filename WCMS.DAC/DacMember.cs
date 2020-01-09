@@ -1,36 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using WCMS.Data;
+using Dapper;
+using System.Linq;
 
 namespace WCMS.DAC
 {
-    class DacMember : WCMS.DAC.DacBase
+    public class DacMember : WCMS.DAC.DacBase
     {
         public DacMember(string connectionString)
         {
-            this.GetDbConnection = new SqlConnection(connectionString);
+            this.Connection = new SqlConnection(connectionString);
         }
 
-        public List<MemberData> GetLoginData(MemberData pContent)
+        public List<MemberData> GetLoginData(string memberId, string memberPw)
         {
+            DynamicParameters queryParam = new DynamicParameters();
+            queryParam.Add("@memberId", memberId, DbType.String);
+            queryParam.Add("@memberPw", memberPw, DbType.String);
+
             try
             {
-                //this.GetDbConnection
-                /*
-                _DapperHelper.Connection.Open();
-                _DapperHelper.ClearParameter();
+                using (IDbConnection dbConnection = this.Connection)
+                {
+                    return dbConnection.Query<MemberData>("", queryParam, commandType: CommandType.StoredProcedure).ToList();
 
-                _DapperHelper.AddParameter("@FileName", pContent.FileName, DbType.String, ParameterDirection.Input);
-                _DapperHelper.AddParameter("@FolderName", pContent.FolderName, DbType.String, ParameterDirection.Input);
-
-                return _DapperHelper.Query<Content>(
-                    "AdventureWorks2008.dbo.usp_CMS_Contents_Info_List",
-                    _DapperHelper.Params,
-                    CommandType.StoredProcedure
-                ).ToList();
-                */
-                return null;
+                }
             }
             catch (SqlException ex)
             {
@@ -38,7 +35,7 @@ namespace WCMS.DAC
             }
             finally
             {
-                //_DapperHelper.Connection.Close();
+                this.Connection.Close();
             }
         }
 

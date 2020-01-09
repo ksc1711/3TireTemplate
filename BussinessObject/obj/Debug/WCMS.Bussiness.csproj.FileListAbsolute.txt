@@ -22,3 +22,5 @@ D:\source\3TireTemplate\BussinessObject\obj\Debug\WCMS.Bussiness.csprojAssemblyR
 D:\source\3TireTemplate\BussinessObject\obj\Debug\WCMS.Bussiness.csproj.CopyComplete
 D:\source\3TireTemplate\BussinessObject\obj\Debug\BussinessObject.dll
 D:\source\3TireTemplate\BussinessObject\obj\Debug\BussinessObject.pdb
+D:\source\3TireTemplate\BussinessObject\bin\Debug\Dapper.dll
+D:\source\3TireTemplate\BussinessObject\bin\Debug\Dapper.xml

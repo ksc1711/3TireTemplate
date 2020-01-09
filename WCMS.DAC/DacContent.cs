@@ -10,7 +10,7 @@ namespace WCMS.DAC
 
         public DacContent(string connectionString)
         {
-            this.GetDbConnection = new SqlConnection(connectionString);
+            this.Connection = new SqlConnection(connectionString);
         }
 
         #region Content List

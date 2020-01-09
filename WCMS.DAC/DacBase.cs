@@ -1,20 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Dapper;
 
 namespace WCMS.DAC
 {
     public abstract class DacBase : IDisposable
     {
         private IDbConnection _sqlConnection;
-
         /* Dapper ORM을 활용한 DB접근 Base 클래스
           Base를 생성한것은 DB마다 접근 계정 및 DB가 다를경우를 
           감안하여 생성. 
              */
 
-        public IDbConnection GetDbConnection
+        public IDbConnection Connection
         {
             get
             {
@@ -25,8 +24,8 @@ namespace WCMS.DAC
                 _sqlConnection = value;
             }
         }
-
-        bool disposed = false;
+    
+    bool disposed = false;
         public void Dispose()
         {
             Dispose(true);

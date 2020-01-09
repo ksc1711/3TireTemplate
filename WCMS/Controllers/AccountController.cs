@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity.Validation;
-using System.Linq;
-using System.Security.Principal;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security;
+using WCMS.Bussiness;
 using WCMS.Web.Models;
 
 namespace WCMS.Web.Controllers
@@ -20,6 +12,8 @@ namespace WCMS.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly BizMember _bizMember = new BizMember();
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -46,14 +40,15 @@ namespace WCMS.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                var member = _bizMember.GetLoginData(model.memberId, model.memberPw);
+
+                if (member != null)
                 {
-                    await SignInAsync(user, model.RememberMe);
+                    //await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
                 else

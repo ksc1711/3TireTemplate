@@ -32,12 +32,12 @@ namespace WCMS.Web.Models
     {
         [Required]
         [Display(Name = "사용자 이름")]
-        public string UserName { get; set; }
+        public string memberId { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "암호")]
-        public string Password { get; set; }
+        public string memberPw { get; set; }
 
         [Display(Name = "사용자 이름 및 암호 저장")]
         public bool RememberMe { get; set; }

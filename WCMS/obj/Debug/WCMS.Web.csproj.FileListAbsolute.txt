@@ -164,3 +164,5 @@ D:\source\3TireTemplate\WCMS\obj\Debug\WCMS.Web.csprojAssemblyReference.cache
 D:\source\3TireTemplate\WCMS\obj\Debug\WCMS.Web.csproj.CopyComplete
 D:\source\3TireTemplate\WCMS\obj\Debug\WCMS.Web.dll
 D:\source\3TireTemplate\WCMS\obj\Debug\WCMS.Web.pdb
+D:\source\3TireTemplate\WCMS\bin\Dapper.dll
+D:\source\3TireTemplate\WCMS\bin\Dapper.xml
