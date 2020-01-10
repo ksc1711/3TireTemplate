@@ -1,6 +1,6 @@
 //로그인
 function memberLogin() {
-    if (memberVaildation()) {
+    if (loginVaildation()) {
 
         var id = $('#txt_userId').val();
         var pw = $('#txt_userPw').val();
@@ -12,7 +12,7 @@ function memberLogin() {
                 memberId: id,
                 memberPw: pw,
             },
-            success: function (data) {
+            success: function () {
                 window.location.replace("/Home/Index");
             },
             error: function (a, b, c) {
@@ -49,7 +49,7 @@ function loginVaildation() {
 
 // 회원가입
 function memberSignUp() {
-    if (memberVaildation()) {
+    if (signUpVaildation()) {
 
         var memberId = $('#txt_userId').val();
         var memberPw = $('#txt_userPw').val();
@@ -65,8 +65,9 @@ function memberSignUp() {
                 ,memberName: memberName
                 ,memberPhone: memberPhone
             },
-            success: function (data) {
-                window.location.replace("/Home/Index");
+            success: function () {
+                alert("suess");
+                //window.location.replace("/Home/Index");
             },
             error: function (all, type, message) {
                 alert("Please check your id and password.");
