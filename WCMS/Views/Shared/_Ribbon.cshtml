@@ -3,8 +3,8 @@
 
     <!-- breadcrumb -->
     <ol class="breadcrumb">
-        <li>Home</li>
-        <li>Dashboard</li>
+        <li>@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString()</li>
+        <li>@ViewContext.Controller.ValueProvider.GetValue("action").RawValue</li>
     </ol>
 
 

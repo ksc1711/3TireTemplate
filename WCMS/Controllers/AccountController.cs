@@ -43,7 +43,6 @@ namespace WCMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 var member = _bizMember.GetLoginData(model.memberId, model.memberPw);
                 if (member != null)
                 {
@@ -51,6 +50,7 @@ namespace WCMS.Web.Controllers
                     user.Id = member.memberNo.ToString();
                     user.UserName = model.memberId;
                     HttpContext.Session.Add("USER_LOGIN_KEY", member.memberNo);
+                    HttpContext.Session.Add("USER_NAME", member.memberName);
                     return "S";
                     
                 }
@@ -88,12 +88,11 @@ namespace WCMS.Web.Controllers
         }
 
 
-        // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // /Account/LogOff
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 

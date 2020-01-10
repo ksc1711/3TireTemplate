@@ -1,5 +1,7 @@
 ﻿<div class="login-info">
-    <span>
-            <span>@User.Identity.Name.ToLower()</span>
-    </span>
+    <p>
+        <h4 class="text-center">
+            @System.Web.HttpContext.Current.Session["USER_NAME"].ToString()
+        </h4>
+    </p>
 </div>
