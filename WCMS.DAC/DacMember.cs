@@ -25,13 +25,16 @@ namespace WCMS.DAC
             {
                 using (IDbConnection dbConnection = this.Connection)
                 {
-                    return dbConnection.Query<MemberData>("uspGet_Member_Select", queryParam, commandType: CommandType.StoredProcedure).ToList()[0];
+                    List<MemberData> memberDatas = dbConnection.Query<MemberData>("uspGet_Member_Select", queryParam, commandType: CommandType.StoredProcedure).ToList();
+                    if (memberDatas.Count > 0) return memberDatas[0];
+                    else return null; 
 
                 }
             }
             catch (SqlException ex)
             {
                 throw new Exception(ex.Message);
+                
             }
             finally
             {

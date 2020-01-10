@@ -12,11 +12,15 @@ function memberLogin() {
                 memberId: id,
                 memberPw: pw,
             },
-            success: function () {
-                window.location.replace("/Home/Index");
+            success: function (data) {
+                switch (data) {
+                    case "S": window.location.replace("/Home/Index"); break;
+                    case "F": 
+                    case "V": 
+                    default: alert("Please check your id and password."); break;
+                }
             },
-            error: function (a, b, c) {
-                alert("Please check your id and password.");
+            error: function (all, type, message) {
                 console.log(all);
                 console.log(type);
                 console.log(message);
@@ -65,9 +69,13 @@ function memberSignUp() {
                 ,memberName: memberName
                 ,memberPhone: memberPhone
             },
-            success: function () {
-                alert("suess");
-                //window.location.replace("/Home/Index");
+            success: function (data) {
+                switch (data) {
+                    case "S": window.location.replace("/Account/Login"); break;
+                    case "F": alert("Duplicate ID."); break;
+                    case "V": alert("Invalid input."); break;
+                    default: alert("Please check your id and password."); break;
+                }
             },
             error: function (all, type, message) {
                 alert("Please check your id and password.");
@@ -126,6 +134,10 @@ function signUpVaildation() {
     }
     else if (!pattern.test($('#txt_userPhone').val())) {
         $('#p_userPhone').text("Please check the input format.(XXX-XXXX-XXXX)");
+        return;
+    }
+    else if ($('#txt_userPhone').val().length != 13) {
+        $('#p_userPhone').text("Phone Number Length is 13");
         return;
     }
 

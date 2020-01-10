@@ -39,7 +39,7 @@ namespace WCMS.Web.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public string Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -51,17 +51,13 @@ namespace WCMS.Web.Controllers
                     user.Id = member.memberNo.ToString();
                     user.UserName = model.memberId;
                     HttpContext.Session.Add("USER_LOGIN_KEY", member.memberNo);
-                    return RedirectToLocal(returnUrl);
+                    return "S";
                     
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid userid or password.");
-                }
+                else return "F";
             }
-
+            return "P";
             // 이 경우 오류가 발생한 것이므로 폼을 다시 표시하십시오.
-            return View(model);
         }
 
         //
@@ -76,21 +72,19 @@ namespace WCMS.Web.Controllers
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public  ActionResult Register(RegisterViewModel model)
+        public string Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
 
                 string result = _bizMember.GetSignUp(model.memberId, model.memberPw, model.memberName, model.memberPhone);
-                //var user = new ApplicationUser() { UserName = model.UserName };
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //await SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+
+                return result.Equals("0") ? "F" : "S";
+                
             }
 
             // 이 경우 오류가 발생한 것이므로 폼을 다시 표시하십시오.
-            return View(model);
+            return "P";
         }
 
 
