@@ -31,17 +31,16 @@ namespace WCMS.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [StringLength(20, ErrorMessage = "{0}은(는) {2}자 이상이어야 합니다.", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "최대길이는 20자 입니다.")]
         [Display(Name = "사용자 ID")]
         public string memberId { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [StringLength(20, ErrorMessage = "최대길이는 20자 입니다.")]
         [Display(Name = "암호")]
         public string memberPw { get; set; }
 
-        [Display(Name = "사용자 이름 및 암호 저장")]
-        public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel

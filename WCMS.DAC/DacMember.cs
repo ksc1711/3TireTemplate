@@ -25,7 +25,7 @@ namespace WCMS.DAC
             {
                 using (IDbConnection dbConnection = this.Connection)
                 {
-                    return dbConnection.Query<MemberData>("", queryParam, commandType: CommandType.StoredProcedure).ToList()[0];
+                    return dbConnection.Query<MemberData>("uspGet_Member_Select", queryParam, commandType: CommandType.StoredProcedure).ToList()[0];
 
                 }
             }

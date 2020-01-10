@@ -39,8 +39,7 @@ namespace WCMS.Web.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginAsync(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -49,14 +48,17 @@ namespace WCMS.Web.Controllers
                 if (member != null)
                 {
                     ApplicationUser user = new ApplicationUser();
-                    user.Id = model.memberId;
-                    user.UserName = member.memberName;
-                    await SignInAsync(user, model.RememberMe);
+                    user.Id = member.memberNo.ToString();
+                    user.UserName = model.memberId;
+
+                    await SignInAsync(user, isPersistent: true);
+
                     return RedirectToLocal(returnUrl);
+                    
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
+                    ModelState.AddModelError("", "Invalid userid or password.");
                 }
             }
 

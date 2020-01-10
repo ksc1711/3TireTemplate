@@ -510,6 +510,8 @@
     <Content Include="Scripts\plugin\delete-table-row\delete-table-row.min.js" />
     <Content Include="Scripts\plugin\fastclick\fastclick.min.js" />
     <Content Include="Scripts\plugin\fullcalendar\jquery.fullcalendar.min.js" />
+    <Content Include="Scripts\plugin\JqBootstrapValidation\jqBootstrapValidation.js" />
+    <Content Include="Scripts\plugin\JqBootstrapValidation\jqBootstrapValidation.min.js" />
     <Content Include="Scripts\plugin\jqgrid\grid.locale-en.min.js" />
     <Content Include="Scripts\plugin\jqgrid\jquery.jqGrid.min.js" />
     <Content Include="Scripts\plugin\jquery-form\jquery-form.min.js" />
