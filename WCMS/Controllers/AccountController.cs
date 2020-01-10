@@ -40,7 +40,7 @@ namespace WCMS.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> LoginAsync(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +48,10 @@ namespace WCMS.Web.Controllers
 
                 if (member != null)
                 {
-                    //await SignInAsync(user, model.RememberMe);
+                    ApplicationUser user = new ApplicationUser();
+                    user.Id = model.memberId;
+                    user.UserName = member.memberName;
+                    await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
                 else

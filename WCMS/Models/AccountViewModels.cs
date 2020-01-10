@@ -31,7 +31,8 @@ namespace WCMS.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "사용자 이름")]
+        [StringLength(20, ErrorMessage = "{0}은(는) {2}자 이상이어야 합니다.", MinimumLength = 6)]
+        [Display(Name = "사용자 ID")]
         public string memberId { get; set; }
 
         [Required]

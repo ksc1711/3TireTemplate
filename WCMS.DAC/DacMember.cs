@@ -15,7 +15,7 @@ namespace WCMS.DAC
             this.Connection = new SqlConnection(connectionString);
         }
 
-        public List<MemberData> GetLoginData(string memberId, string memberPw)
+        public MemberData GetLoginData(string memberId, string memberPw)
         {
             DynamicParameters queryParam = new DynamicParameters();
             queryParam.Add("@memberId", memberId, DbType.String);
@@ -25,7 +25,7 @@ namespace WCMS.DAC
             {
                 using (IDbConnection dbConnection = this.Connection)
                 {
-                    return dbConnection.Query<MemberData>("", queryParam, commandType: CommandType.StoredProcedure).ToList();
+                    return dbConnection.Query<MemberData>("", queryParam, commandType: CommandType.StoredProcedure).ToList()[0];
 
                 }
             }
