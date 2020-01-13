@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace WCMS.Web.Controllers
 {
     public class HomeController : Controller
@@ -21,6 +22,7 @@ namespace WCMS.Web.Controllers
 
         public ActionResult test()
         {
+
             return View();
         }
     }

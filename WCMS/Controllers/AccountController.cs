@@ -89,11 +89,13 @@ namespace WCMS.Web.Controllers
 
 
         // /Account/LogOff
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            HttpContext.Session.Abandon();
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            HttpContext.Response.Cookies.Remove("ASP.NET_SessionId");
+            return RedirectToAction("Login", "Account");
         }
 
 
