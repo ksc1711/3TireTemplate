@@ -148,8 +148,6 @@ D:\source\3TireTemplate\WCMS\bin\ko\System.Web.Razor.resources.dll
 D:\source\3TireTemplate\WCMS\bin\ko\System.Web.WebPages.resources.dll
 D:\source\3TireTemplate\WCMS\bin\ko\System.Web.WebPages.Deployment.resources.dll
 D:\source\3TireTemplate\WCMS\bin\ko\System.Web.WebPages.Razor.resources.dll
-D:\source\3TireTemplate\WCMS\bin\ko\EntityFramework.resources.dll
-D:\source\3TireTemplate\WCMS\bin\ko\EntityFramework.SqlServer.resources.dll
 D:\source\3TireTemplate\WCMS\bin\ko\Microsoft.AspNet.Identity.Core.resources.dll
 D:\source\3TireTemplate\WCMS\bin\ko\Microsoft.AspNet.Identity.Owin.resources.dll
 D:\source\3TireTemplate\WCMS\bin\ko\Microsoft.AspNet.Identity.EntityFramework.resources.dll

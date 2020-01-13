@@ -1,4 +1,5 @@
 ﻿@using WCMS.Web;
+@using WCMS.Web;
 @{
     ViewBag.Title = "ImageUpload";
 }
@@ -71,7 +72,7 @@
                                         유효기간 : &nbsp;
                                         <div class="input-group">
                                             <input class="form-control" placeholder="" id="txtExpiryDate" type="text" readonly="readonly" value="@DateTime.Now.ToIdDateType()">
-                                            <span class="input-group-addon" onclick="$('#txtExpiryDate').focus();"> 
+                                            <span class="input-group-addon" onclick="$('#txtExpiryDate').focus();">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
                                         </div>
@@ -79,7 +80,7 @@
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                       * 지역
+                                        * 지역
                                     </td>
                                     <td class="active">
                                         대륙 : &nbsp;
@@ -154,19 +155,19 @@
                                     <td colspan="5">
                                         <div class="checkbox" style="word-spacing:30px;">
                                             <label>
-                                                <input id="chkAttraction" type="checkbox" checked> 명소
+                                                <input id="chk_Attraction" type="checkbox" checked> 명소
                                             </label>
                                             <label>
-                                                <input id="chkLodging" type="checkbox" > 숙소
+                                                <input id="chkLodging" type="checkbox"> 숙소
                                             </label>
                                             <label>
-                                                <input id="chkFamousRestaurant" type="checkbox" > 맛집
+                                                <input id="chkFamousRestaurant" type="checkbox"> 맛집
                                             </label>
                                             <label>
-                                                <input id="chkTraffic" type="checkbox" > 교통/패스
+                                                <input id="chkTraffic" type="checkbox"> 교통/패스
                                             </label>
                                             <label>
-                                                <input id="chkShopping" type="checkbox" > 쇼핑
+                                                <input id="chkShopping" type="checkbox"> 쇼핑
                                             </label>
                                             <label>
                                                 <input id="chkOthersCategory" type="checkbox"> 기타
@@ -201,7 +202,7 @@
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                        * 계절
+                                        *
                                     </td>
                                     <td colspan="5">
                                         <div class="radio" style="word-spacing:30px;">
@@ -249,12 +250,11 @@
                                         촬영일
                                     </td>
                                     <td colspan="5">
-                                       
                                     </td>
                                 </tr>
                                 <tr class="active">
                                     <td>
-                                      * 사이즈
+                                        * 사이즈
                                     </td>
                                     <td colspan="5"></td>
                                 </tr>
@@ -263,8 +263,6 @@
                                         * 퀄리티
                                     </td>
                                     <td colspan="5">
-
-
                                     </td>
                                 </tr>
                                 <tr class="active">
@@ -304,4 +302,4 @@
         prevText: '<i class="fa fa-chevron-left"></i>',
         nextText: '<i class="fa fa-chevron-right"></i>',
     });
-    </script>
+</script>

@@ -8,5 +8,6 @@ namespace WCMS.Bussiness
 {
     public class BizCommon
     {
+
     }
 }

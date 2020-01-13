@@ -7,17 +7,11 @@ using System.Web.Mvc;
 
 namespace WCMS.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            if (HttpContext.Session["USER_LOGIN_KEY"] == null)
-            {
-                //로그인이 안된 상태
-                return RedirectToAction("Login", "Account");
-            }
-
-            return View();
+            return LoginCheck();
         }
 
         public ActionResult test()
