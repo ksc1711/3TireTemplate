@@ -12,9 +12,9 @@ namespace WCMS.Bussiness
             return new DacMember(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetLoginData(memberId, memberPw);
         }
 
-        public string GetSignUp(string memberId, string memberPw, string memberName, string memberPhone)
+        public string SetSignUp(string memberId, string memberPw, string memberName, string memberPhone)
         {
-            return new DacMember(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetSignUp(memberId, memberPw, memberName, memberPhone);
+            return new DacMember(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).SetSignUp(memberId, memberPw, memberName, memberPhone);
         }
     }
 }

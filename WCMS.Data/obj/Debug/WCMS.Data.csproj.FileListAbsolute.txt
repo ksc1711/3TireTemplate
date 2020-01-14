@@ -7,3 +7,4 @@ D:\source\3TireTemplate\WCMS.Data\bin\Debug\WCMS.Data.dll
 D:\source\3TireTemplate\WCMS.Data\bin\Debug\WCMS.Data.pdb
 D:\source\3TireTemplate\WCMS.Data\obj\Debug\WCMS.Data.dll
 D:\source\3TireTemplate\WCMS.Data\obj\Debug\WCMS.Data.pdb
+D:\source\3TireTemplate\WCMS.Data\obj\Debug\WCMS.Data.csprojAssemblyReference.cache

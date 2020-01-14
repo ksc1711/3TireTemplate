@@ -42,7 +42,7 @@ namespace WCMS.DAC
             }
         }
 
-        public string GetSignUp(string memberId, string memberPw, string memberName, string memberPhone)
+        public string SetSignUp(string memberId, string memberPw, string memberName, string memberPhone)
         {
             DynamicParameters queryParam = new DynamicParameters();
             queryParam.Add("@memberId", memberId, DbType.String);

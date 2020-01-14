@@ -1,17 +1,19 @@
 ﻿using System;
-using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using WCMS.Bussiness;
 using WCMS.Data;
-using WCMS.Web;
-
+using WCMS.Web.Helpers;
+using WCMS.Bussiness;
+using System.Collections.Generic;
+using PagedList;
 
 namespace WCMS.Web.Controllers
 {
     public class ImageController : BaseController
     {
-        private readonly BizCotent _content = new BizCotent();
+        private int _pageSize = 5;
+
+        private readonly BizImage _bizImage = new BizImage();
         //
         // GET: /ImageUpload/
         public ActionResult ImageUpload()
@@ -19,10 +21,27 @@ namespace WCMS.Web.Controllers
             return LoginCheck();
         }
 
-        public ActionResult ImageSerach()
+        public ActionResult ImageSerachList(int? page, string imageKeyword = "")
         {
-            return LoginCheck();
+            
+
+            if (!LoginCheckBool()) return RedirectToAction("Login", "Account");
+
+            int pageNo = (page ?? 1);
+
+            int totalCnt = 0;
+            int pageCount = 0;
+
+            List<ImageData> imageDatas = _bizImage.GetImageList(imageKeyword);
+
+            // 페이징 갯수 
+            int pagingCount = (totalCnt==0 ? 1: totalCnt) / _pageSize;
+            ViewBag.pageCount = pagingCount;
+            ViewBag.pageDataCount = pageCount;
+
+            return View(imageDatas.ToPagedList(pageNo, _pageSize));
         }
+
         public ActionResult ImageDetail()
         {
             return LoginCheck();
@@ -34,17 +53,19 @@ namespace WCMS.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ImageAdd(HttpPostedFileBase file)
+        public ActionResult ImageAdd(HttpPostedFileBase file,string keyword)
         {
-            ViewBag.message = "Image upload complete";
+            if(!LoginCheckBool()) return RedirectToAction("Login", "Account");
 
             if (file != null)
             {
+                
                 string fileExtensionType = string.Empty;
                 string fileName = string.Empty;
                 string subPath = string.Empty;
                 string saveFileName = string.Empty;
                 string fullPath = string.Empty;
+                string memberId = HttpContext.Session["USER_NAME"].ToString();
 
                 FileUploadStatus uploadStatus = FileUploader.FileSave(file,ref fileExtensionType, ref fileName,ref subPath,ref saveFileName,ref fullPath);
 
@@ -55,8 +76,16 @@ namespace WCMS.Web.Controllers
                     case FileUploadStatus.NOT_SUPPORT_EXTENSIONTYPE: ViewBag.message = "File format is not supported."; break;
                     case FileUploadStatus.OK: 
                     default: ViewBag.message = "Image upload complete"; break;
-
                 }
+
+                ImageData imageData = new ImageData();
+                imageData.imageKeyword = string.IsNullOrEmpty(keyword) ? fileName : keyword;
+                imageData.imagePath = subPath;
+                imageData.imageName = saveFileName;
+
+                string result = _bizImage.SetImageData(imageData, memberId);
+
+                ViewBag.message = result.Equals("0") ? "The same image name exists." : "Image upload complete";
             }
             else
             {
@@ -69,7 +98,6 @@ namespace WCMS.Web.Controllers
         [HttpPost]
         public JsonResult GetContentList(int draw, string pJsonString)
         {
-
             try
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();
@@ -84,7 +112,7 @@ namespace WCMS.Web.Controllers
                     content = Newtonsoft.Json.JsonConvert.DeserializeObject<ContentData>(pJsonString, settings);
                 }
 
-                var List = _content.GetContentList(content);
+               var List = new { };//_content.GetContentList(content);
 
                 return Json(new { draw = draw, data = List }, JsonRequestBehavior.AllowGet);
             }

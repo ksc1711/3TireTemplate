@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin.Security;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using WCMS.Bussiness;
 using WCMS.Web.Models;
@@ -50,7 +47,7 @@ namespace WCMS.Web.Controllers
                     user.Id = member.memberNo.ToString();
                     user.UserName = model.memberId;
                     HttpContext.Session.Add("USER_LOGIN_KEY", member.memberNo);
-                    HttpContext.Session.Add("USER_NAME", member.memberName);
+                    HttpContext.Session.Add("USER_NAME", member.memberId);
                     return "S";
                     
                 }
@@ -77,7 +74,7 @@ namespace WCMS.Web.Controllers
             if (ModelState.IsValid)
             {
 
-                string result = _bizMember.GetSignUp(model.memberId, model.memberPw, model.memberName, model.memberPhone);
+                string result = _bizMember.SetSignUp(model.memberId, model.memberPw, model.memberName, model.memberPhone);
 
                 return result.Equals("0") ? "F" : "S";
                 

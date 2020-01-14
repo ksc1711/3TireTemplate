@@ -13,5 +13,11 @@ namespace WCMS.Web.Controllers
         {
             return LoginCheck();
         }
+
+        // GET: Popup
+        public ActionResult PopUpAdd()
+        {
+            return LoginCheck();
+        }
     }
 }

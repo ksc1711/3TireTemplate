@@ -164,3 +164,9 @@ D:\source\3TireTemplate\WCMS\obj\Debug\WCMS.Web.dll
 D:\source\3TireTemplate\WCMS\obj\Debug\WCMS.Web.pdb
 D:\source\3TireTemplate\WCMS\bin\Dapper.dll
 D:\source\3TireTemplate\WCMS\bin\Dapper.xml
+D:\source\3TireTemplate\WCMS\bin\Magick.NET-Q16-AnyCPU.dll
+D:\source\3TireTemplate\WCMS\bin\Magick.NET-Q16-AnyCPU.xml
+D:\source\3TireTemplate\WCMS\bin\PagedList.dll
+D:\source\3TireTemplate\WCMS\bin\PagedList.Mvc.dll
+D:\source\3TireTemplate\WCMS\bin\PagedList.xml
+D:\source\3TireTemplate\WCMS\bin\PagedList.Mvc.xml

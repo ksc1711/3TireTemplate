@@ -20,3 +20,6 @@ D:\source\3TireTemplate\WCMS.DAC\obj\Debug\WCMS.DAC.csproj.CopyComplete
 D:\source\3TireTemplate\WCMS.DAC\obj\Debug\WCMS.DAC.dll
 D:\source\3TireTemplate\WCMS.DAC\obj\Debug\WCMS.DAC.pdb
 D:\source\3TireTemplate\WCMS.DAC\bin\Debug\Dapper.dll
+D:\source\3TireTemplate\WCMS.DAC\bin\Debug\NLog.config
+D:\source\3TireTemplate\WCMS.DAC\bin\Debug\NLog.dll
+D:\source\3TireTemplate\WCMS.DAC\bin\Debug\NLog.xml
