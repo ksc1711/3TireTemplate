@@ -65,5 +65,29 @@ namespace WCMS.DAC
                 this.Connection.Close();
             }
         }
+
+
+        public ImageData GetImageData(int idx)
+        {
+            DynamicParameters queryParam = new DynamicParameters();
+            queryParam.Add("@idx", idx, DbType.String);
+
+            try
+            {
+                using (IDbConnection dbConnection = this.Connection)
+                {
+                    return dbConnection.Query<ImageData>("uspGet_Image_Select", queryParam, commandType: CommandType.StoredProcedure).First();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+        }
     }
 }

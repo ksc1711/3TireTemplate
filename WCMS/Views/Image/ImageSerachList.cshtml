@@ -1,4 +1,4 @@
-﻿@using PagedList;
+﻿
 @using PagedList.Mvc;
 
 @model PagedList.IPagedList<WCMS.Data.ImageData>
@@ -8,57 +8,77 @@
 
 <div><b></b><br /></div>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="text" id="txt_imageKeyword" />
-                    <input type="button" onclick="javascript:" />
+    @using (Html.BeginForm("ImageSerachList",
+                        "Image",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <img id="img_preview" src="@Url.Action("GetImage", new { idx = 0 })" alt="select image" style="width: 500px;" class="img-responsive center-block" />
+                </div>
+                <br />
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div class="col-sm-10">
+                            <input type="text" name="keyword" class="form-control" placeholder="please image keword">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" class="btn btn-primary pull-right" value="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col" style="display:none;">idx </th>
+                            <th scope="col">imageName </th>
+                            <th scope="col">imagePath </th>
+                            <th scope="col">imageSize</th>
+                            <th scope="col">imageKeyWord</th>
+                            <th scope="col">regDate</th>
+                            <th scope="col">regUser</th>
+                            <th scope="col">modDate</th>
+                            <th scope="col">modUser</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var image in Model)
+                        {
+                            <tr>
+                                <td class="table-light" style="display:none;">@image.idx</td>
+                                <td class="table-light"><a href="#" onclick='javascript: rendImage("@Url.Action("GetImage", new { idx = @image.idx })");'>@image.imageName</a></td>
+                                <td class="table-light">@image.imagePath</td>
+                                <td class="table-light">@image.imageSize</td>
+                                <td class="table-light">@image.imageKeyword</td>
+                                <td class="table-light">@image.regDate</td>
+                                <td class="table-light">@image.regUser</td>
+                                <td class="table-light">@image.modDate</td>
+                                <td class="table-light">@image.modUser</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <ul class="pagination">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                        @Html.PagedListPager(Model, page => Url.Action("ImageSerachList", new { page }))
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col" style="display:none;">idx </th>
-                        <th scope="col">imageName </th>
-                        <th scope="col">imagePath </th>
-                        <th scope="col">imageSize</th>
-                        <th scope="col">imageKeyWord</th>
-                        <th scope="col">regDate</th>
-                        <th scope="col">regUser</th>
-                        <th scope="col">modDate</th>
-                        <th scope="col">modUser</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var image in Model)
-                    {
-                        <tr>
-                            <td class="table-light" style="display:none;">@image.idx</td>
-                            <td class="table-light">@image.imageName</td>
-                            <td class="table-light">@image.imagePath</td>
-                            <td class="table-light">@image.imageSize</td>
-                            <td class="table-light">@image.imageKeyword</td>
-                            <td class="table-light">@image.regDate</td>
-                            <td class="table-light">@image.regUser</td>
-                            <td class="table-light">@image.modDate</td>
-                            <td class="table-light">@image.modUser</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="text-center">    
-                <ul class="pagination">
-                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-                    @Html.PagedListPager(Model, page => Url.Action("ImageSerachList", new { page }))
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 
+<script>
+    function rendImage(name) {
+        $("#img_preview").attr("src", name);
+    }
+</script>
 

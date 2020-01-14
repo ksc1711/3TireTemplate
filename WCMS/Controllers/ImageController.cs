@@ -6,12 +6,15 @@ using WCMS.Web.Helpers;
 using WCMS.Bussiness;
 using System.Collections.Generic;
 using PagedList;
+using System.Drawing;
+using System.IO;
 
 namespace WCMS.Web.Controllers
 {
     public class ImageController : BaseController
     {
         private int _pageSize = 5;
+        private string _defaultPath = "D:/images/default.png";
 
         private readonly BizImage _bizImage = new BizImage();
         //
@@ -21,23 +24,33 @@ namespace WCMS.Web.Controllers
             return LoginCheck();
         }
 
-        public ActionResult ImageSerachList(int? page, string imageKeyword = "")
+        
+        public ActionResult GetImage(int idx)
         {
-            
+            string path = string.Empty;
 
+            if (idx > 0)
+            { 
+                ImageData imageData = _bizImage.GetImageData(idx);
+                path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imageData.imagePath, imageData.imageName);
+            }
+            else
+            {
+                path = _defaultPath;
+            }
+
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            return new FileStreamResult(stream, "image/png");
+        }
+
+        public ActionResult ImageSerachList(int? page, string keyword = "")
+        {
             if (!LoginCheckBool()) return RedirectToAction("Login", "Account");
 
             int pageNo = (page ?? 1);
 
-            int totalCnt = 0;
-            int pageCount = 0;
-
-            List<ImageData> imageDatas = _bizImage.GetImageList(imageKeyword);
-
-            // 페이징 갯수 
-            int pagingCount = (totalCnt==0 ? 1: totalCnt) / _pageSize;
-            ViewBag.pageCount = pagingCount;
-            ViewBag.pageDataCount = pageCount;
+            List<ImageData> imageDatas = _bizImage.GetImageList(keyword);
 
             return View(imageDatas.ToPagedList(pageNo, _pageSize));
         }
