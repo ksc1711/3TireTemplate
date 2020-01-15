@@ -99,5 +99,15 @@ namespace WCMS.Web
 
 			return default(T);
 		}
+
+		public static Newtonsoft.Json.JsonSerializerSettings newtonsoftSetting()
+		{
+			var settings = new Newtonsoft.Json.JsonSerializerSettings();
+			settings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
+			settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+			settings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTime;
+
+			return settings;
+		}
 	}
 }

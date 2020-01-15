@@ -10,7 +10,7 @@ namespace WCMS.Data
         public string imagePath { get; set; }
         public string imageSize { get; set; }
         public string imageKeyword { get; set; }
-
+        public string useYn { get; set; }
         public DateTime regDate { get; set; }
         public string regUser { get; set; }
         

@@ -5,8 +5,6 @@
 
 <title>Image Searh List</title>
 
-
-<div><b></b><br /></div>
 <div class="container">
     @using (Html.BeginForm("ImageSerachList",
                         "Image",
@@ -15,6 +13,7 @@
     {
         <div class="row">
             <div class="col-md-12">
+                <br />
                 <div class="row">
                     <img id="img_preview" src="@Url.Action("GetImage", new { idx = 0 })" alt="select image" style="width: 500px;" class="img-responsive center-block" />
                 </div>
@@ -32,53 +31,172 @@
             </div>
         </div>
     }
-        <br />
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table table-bordered">
-                    <thead class="thead-dark">
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" style="display:none;">idx </th>
+                        <th scope="col">imageName </th>
+                        <th scope="col">imageSize</th>
+                        <th scope="col">imageKeyWord</th>
+                        <th scope="col">regDate</th>
+                        <th scope="col">regUser</th>
+                        <th scope="col">modDate</th>
+                        <th scope="col">modUser</th>
+                        <th scope="col">preview</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var image in Model)
+                    {
                         <tr>
-                            <th scope="col" style="display:none;">idx </th>
-                            <th scope="col">imageName </th>
-                            <th scope="col">imagePath </th>
-                            <th scope="col">imageSize</th>
-                            <th scope="col">imageKeyWord</th>
-                            <th scope="col">regDate</th>
-                            <th scope="col">regUser</th>
-                            <th scope="col">modDate</th>
-                            <th scope="col">modUser</th>
+                            <td class="table-light" style="display:none;">@image.idx</td>
+                            <td class="table-light">
+                                
+                                <a href="#" onclick='javascript:rendModalData(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(image) as String));' data-toggle="modal" data-target="#myModal">@image.imageName</a>
+                            </td>
+                            <td class="table-light">@image.imageSize</td>
+                            <td class="table-light">@image.imageKeyword</td>
+                            <td class="table-light">@image.regDate</td>
+                            <td class="table-light">@image.regUser</td>
+                            <td class="table-light">@image.modDate</td>
+                            <td class="table-light">@image.modUser</td>
+                            <td class="table-light">
+                                <a href="#" onclick='javascript: rendImage("@Url.Action("GetImage", new { idx = @image.idx })");'>
+                                    <img src="@Url.Action("GetImage", new { idx = @image.idx })" style="width: 100px;" alt="imagePreview" class="img-responsive center-block" />
+                                </a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var image in Model)
-                        {
-                            <tr>
-                                <td class="table-light" style="display:none;">@image.idx</td>
-                                <td class="table-light"><a href="#" onclick='javascript: rendImage("@Url.Action("GetImage", new { idx = @image.idx })");'>@image.imageName</a></td>
-                                <td class="table-light">@image.imagePath</td>
-                                <td class="table-light">@image.imageSize</td>
-                                <td class="table-light">@image.imageKeyword</td>
-                                <td class="table-light">@image.regDate</td>
-                                <td class="table-light">@image.regUser</td>
-                                <td class="table-light">@image.modDate</td>
-                                <td class="table-light">@image.modUser</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <div class="text-center">
-                    <ul class="pagination">
-                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-                        @Html.PagedListPager(Model, page => Url.Action("ImageSerachList", new { page }))
-                    </ul>
-                </div>
+                    }
+                </tbody>
+            </table>
+            <div class="text-center">
+                <ul class="pagination">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("ImageSerachList", new { page }))
+                </ul>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Image Update</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="hid_idx" />
+                    <div class="form-group">
+                        <label for="txt_imageName" class="col-form-label">ImageName:</label>
+                        <input type="text" class="form-control" id="txt_imageName" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel_imageSize" class="col-form-label">ImageSize:</label>
+                        <select class="custom-select" id="sel_imageSize">
+                            <option value="N">Normal</option>
+                            <option value="T">Thumbnail</option>
+                            <option value="B">Big</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_imageKeywod" class="col-form-label">ImageKeywod:</label>
+                        <input type="text" class="form-control" id="txt_imageKeywod">
+                    </div>
+                    <div class="form-group">
+                        <label for="sel_useYn" class="col-form-label">UseYN:</label>
+                        <select class="custom-select"  id="sel_useYn">
+                            <option value="Y">Y</option>
+                            <option value="N">N</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">RegDate:</label>
+                        <input type="text" class="form-control" id="txt_regDate" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">RegUser:</label>
+                        <input type="text" class="form-control" id="txt_regUser" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">ModDate:</label>
+                        <input type="text" class="form-control" id="txt_modDate" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">ModUser:</label>
+                        <input type="text" class="form-control" id="txt_modUser" disabled>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript: imageUpdate();">Update</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     function rendImage(name) {
         $("#img_preview").attr("src", name);
     }
+
+    function rendModalData(data) {
+        //var result = JSON.parse(data);
+        $('#hid_idx').val(data.idx);
+        $('#txt_imageName').val(data.imageName);
+        $('#sel_imageSize').val(data.imageSize);
+        $('#txt_imageKeywod').val(data.imageKeyword);
+        $('#txt_regDate').val(data.regDate);
+        $('#txt_regUser').val(data.regUser);
+        $('#txt_modDate').val(data.modDate);
+        $('#txt_modUser').val(data.modUser);
+    }
+
+    function makeUpdateData() {
+        var data = {
+            idx: $('#hid_idx').val()
+            , imageSize: $('#sel_imageSize').val()
+            , imageKeyword: $('#txt_imageKeywod').val()
+            , useYn: $('#sel_useYn').val()
+        }
+
+        return data;
+    }
+
+    function imageUpdate() {
+        $.ajax({
+            url: "/Image/ImageUpdate",
+            type: "POST",
+            dataType: "json",
+            data: {
+                jsonData: JSON.stringify(makeUpdateData())
+            },
+            async: false,
+            success: function (result) {
+                if (result.data > 0) alert('image data update sucess.');
+                else alert('There is no updateable data.');
+
+                location.reload();
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    }
 </script>
 
+<style>
+    .modal-backdrop{z-index: 1050;}
+.modal{z-index: 1060;}
+
+</style>

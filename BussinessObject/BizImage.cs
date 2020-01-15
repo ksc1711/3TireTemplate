@@ -21,5 +21,10 @@ namespace WCMS.Bussiness
         {
             return new DacImage(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetImageData(idx);
         }
+
+        public int UpdateImageData(ImageData imgeData, string memberId)
+        {
+            return new DacImage(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).UpdateImageData(imgeData, memberId);
+        }
     }
 }

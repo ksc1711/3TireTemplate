@@ -17,11 +17,30 @@ namespace WCMS.Web.Controllers
         private string _defaultPath = "D:/images/default.png";
 
         private readonly BizImage _bizImage = new BizImage();
-        //
-        // GET: /ImageUpload/
-        public ActionResult ImageUpload()
+        
+        [HttpPost]
+        public JsonResult ImageUpdate(string jsonData)
         {
-            return LoginCheck();
+            string memberId = HttpContext.Session["USER_NAME"].ToString();
+
+            try
+            {
+                var settings = Settings.newtonsoftSetting();
+                ImageData imageData = new ImageData();
+
+                if (!string.IsNullOrEmpty(jsonData))
+                {
+                    imageData = Newtonsoft.Json.JsonConvert.DeserializeObject<ImageData>(jsonData, settings);
+                }
+
+                int result = _bizImage.UpdateImageData(imageData, memberId);
+
+                return Json(new { data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { STATUS = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         
@@ -113,11 +132,7 @@ namespace WCMS.Web.Controllers
         {
             try
             {
-                var settings = new Newtonsoft.Json.JsonSerializerSettings();
-                settings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
-                settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                settings.DateParseHandling = Newtonsoft.Json.DateParseHandling.DateTime;
-                //settings.Culture = new System.Globalization.CultureInfo("utf-8");
+                var settings = Settings.newtonsoftSetting();
                 ContentData content = new ContentData();
 
                 if (!string.IsNullOrEmpty(pJsonString))

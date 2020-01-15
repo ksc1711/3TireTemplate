@@ -626,7 +626,6 @@
     <Content Include="Content\fonts\fa-solid-900.woff" />
     <Content Include="Content\fonts\fa-solid-900.woff2" />
     <None Include="Project_Readme.html" />
-    <Content Include="Views\Image\ImageUpload.cshtml" />
     <Content Include="Views\Shared\_LayoutSimple.cshtml" />
     <Content Include="Views\Image\ImageDetail.cshtml" />
     <Content Include="Views\Image\ImageAdd.cshtml" />

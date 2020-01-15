@@ -89,5 +89,33 @@ namespace WCMS.DAC
                 this.Connection.Close();
             }
         }
+
+        public int UpdateImageData(ImageData imageData, string memberId)
+        {
+            DynamicParameters queryParam = new DynamicParameters();
+            queryParam.Add("@Idx", imageData.idx, DbType.String);
+            queryParam.Add("@imageSize", imageData.imageSize, DbType.String);
+            queryParam.Add("@ImageKeyword", imageData.imageKeyword, DbType.String);
+            queryParam.Add("@useYn", imageData.useYn, DbType.String);
+            queryParam.Add("@memberId", memberId, DbType.String);
+
+            try
+            {
+                using (IDbConnection dbConnection = this.Connection)
+                {
+                    int a = dbConnection.Query<int>("uspSet_Image_Update", queryParam, commandType: CommandType.StoredProcedure).First();
+                    return a;// dbConnection.Query<int>("uspSet_Image_Update", queryParam, commandType: CommandType.StoredProcedure).First();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+        }
     }
 }
