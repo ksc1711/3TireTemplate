@@ -633,7 +633,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Popup\PopUpList.cshtml" />
     <Content Include="Views\Image\ImageAdd2.cshtml" />
-    <Content Include="Views\Image\ImageSerach2.cshtml" />
     <Content Include="Views\Image\ImageSerachList.cshtml" />
     <Content Include="Views\Popup\PopUpAdd.cshtml" />
   </ItemGroup>

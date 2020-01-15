@@ -74,16 +74,13 @@ namespace WCMS.Web.Controllers
             return View(imageDatas.ToPagedList(pageNo, _pageSize));
         }
 
-        public ActionResult ImageDetail()
-        {
-            return LoginCheck();
-        }
         public ActionResult ImageAdd()
         {
 
             return LoginCheck();
         }
 
+        // 이미지 등록 프로세스 페이지 
         [HttpPost]
         public ActionResult ImageAdd(HttpPostedFileBase file,string keyword)
         {
@@ -117,7 +114,7 @@ namespace WCMS.Web.Controllers
 
                 string result = _bizImage.SetImageData(imageData, memberId);
 
-                ViewBag.message = result.Equals("0") ? "The same image name exists." : "Image upload complete";
+                ViewBag.message = result.Equals("0") ? "The same image name exists." : ViewBag.message;
             }
             else
             {
@@ -127,31 +124,65 @@ namespace WCMS.Web.Controllers
             return View();
         }
 
+
         [HttpPost]
-        public JsonResult GetContentList(int draw, string pJsonString)
+        public JsonResult GetImageAddPath(HttpPostedFileBase fileInfo)
         {
+
             try
             {
-                var settings = Settings.newtonsoftSetting();
-                ContentData content = new ContentData();
+                string returnMessage = string.Empty;
+                string returnStatus = "F";
 
-                if (!string.IsNullOrEmpty(pJsonString))
+                if (fileInfo != null)
                 {
-                    content = Newtonsoft.Json.JsonConvert.DeserializeObject<ContentData>(pJsonString, settings);
+
+                    string fileExtensionType = string.Empty;
+                    string fileName = string.Empty;
+                    string subPath = string.Empty;
+                    string saveFileName = string.Empty;
+                    string fullPath = string.Empty;
+                    string memberId = HttpContext.Session["USER_NAME"].ToString();
+
+                    FileUploadStatus uploadStatus = FileUploader.FileSave(fileInfo, ref fileExtensionType, ref fileName, ref subPath, ref saveFileName, ref fullPath);
+
+                    switch (uploadStatus)
+                    {
+                        case FileUploadStatus.SYSTEM_EXCEPTION: returnMessage = "Could not get file information."; break;
+                        case FileUploadStatus.ZERO_BYTE: returnMessage = "File Size is Zero."; break;
+                        case FileUploadStatus.NOT_SUPPORT_EXTENSIONTYPE: returnMessage = "File format is not supported."; break;
+                        case FileUploadStatus.OK:
+                        default: returnMessage = fullPath; returnStatus = "S";  break;
+                    }
+
+                    var settings = Settings.newtonsoftSetting();
+                    ImageData imageData = new ImageData();
+                    imageData.imageKeyword = fileName;
+                    imageData.imagePath = subPath;
+                    imageData.imageName = saveFileName;
+
+                    string result = _bizImage.SetImageData(imageData, memberId);
+
+                    
+                    if (result.Equals("0"))
+                    {
+                        returnMessage = "The same image name exists.";
+                        returnStatus = "F";
+                    }
+                }
+                else
+                {
+                    returnStatus = "F";
+                    returnMessage = "Could not get file information.";
                 }
 
-               var List = new { };//_content.GetContentList(content);
-
-                return Json(new { draw = draw, data = List }, JsonRequestBehavior.AllowGet);
+                return Json(new { Message = returnMessage , Status = returnStatus }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                return Json(new { STATUS = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Message = ex.Message, Status = "F" }, JsonRequestBehavior.AllowGet);
             }
         }
 
-
-
-
-	}
+    }
 }
