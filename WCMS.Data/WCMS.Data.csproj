@@ -43,6 +43,7 @@
     <Compile Include="CommonData.cs" />
     <Compile Include="ContentData.cs" />
     <Compile Include="ImageData.cs" />
+    <Compile Include="PopupData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MemberData.cs" />
   </ItemGroup>

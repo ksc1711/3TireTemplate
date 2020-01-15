@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "PopupAdd";
 }
+    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+   
 
 <div id="content" class="container">
         <br />
@@ -40,7 +44,12 @@
                     <tr>
                         <th scope="row" class="table-dark"> Join Member </th>
                         <td class="table-light" colspan="2">
-                            <input type="text" id="txt_joinMember" class="form-control" />
+                            <select id="sel_multiMember" multiple="multiple" >
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -97,9 +106,19 @@
         /* prevent horizontal scrollbar */
         overflow-x: hidden;
     }
+
+
 </style>
 
 <script type="text/javascript">
+     $(document).ready(function() {
+          $('#sel_multiMember').multiselect({
+            buttonWidth : '900px',
+            includeSelectAllOption : true,
+		        nonSelectedText: 'Select an Option'
+          });
+        });
+
     $('#txt_endDate').datepicker({
         dateFormat: 'yy-mm-dd',
         prevText: '<i class="fa fa-chevron-left"></i>',
