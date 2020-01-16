@@ -14,6 +14,12 @@ namespace WCMS.Web.Controllers
         // GET: Popup
         public ActionResult PopUpList()
         {
+            if (!LoginCheckBool()) return RedirectToAction("Login", "Account");
+
+            var members = _bizMember.GetLoginList("SDT");
+
+            ViewBag.Members = members;
+
             return View();
         }
 

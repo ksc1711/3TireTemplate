@@ -1,291 +1,211 @@
-﻿@using WCMS.Web;
-@{
-    ViewBag.Title = "PopupAdd";
-}
+﻿@using WCMS.Data;
+@using PagedList.Mvc;
 
-<div id="content">
-    <section id="widget-grid">
+
+@model PagedList.IPagedList<WCMS.Data.PopupData>
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+
+
+<title>Image Searh List</title>
+
+<div class="container">
+    @using (Html.BeginForm("PopupList",
+                        "Popup",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+    {
+        <br />
+
         <div class="row">
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="jarviswidget jarviswidget-color-darken" data-widget-sortable="false" data-widget-colorbutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false">
-                    <header role="heading">
-                        <h2> @ViewBag.Title </h2>
-                        <div class="widget-toolbar font-xs" role="menu">
-                            @ViewBag.Title
+            <div class="col-md-12">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <div class="col-sm-1">
+                            <label for="" class="col-form-label">Keyword:</label>
                         </div>
-                    </header>
-
-                    <img src="~/Content/img/violate.jpg" alt="" class="img-thumbnail" width="20%">
-                    <img src="~/Content/img/violate.jpg" alt="" class="img-thumbnail" width="20%">
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered" style="margin-left:0px">
-                            <thead>
-                                <tr role="row" class="active">
-                                    <th class="active" width="15%">항목</th>
-                                    <th class="active" colspan="6">상세 값</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table table-hover">
-                                <tr>
-                                    <td class="active">No</td>
-                                    <td colspan="6">등록 순으로 자동입력 -> 콘텐츠ID (복수 등록시, 사진 순서대로 넘버링)</td>
-                                </tr>
-                                <tr>
-                                    <td class="active">스팟명(한글)</td>
-                                    <td colspan="6"></td>
-                                </tr>
-                                <tr>
-                                    <td class="active">원어명(영어)</td>
-                                    <td colspan="6"></td>
-                                </tr>
-                                <tr class="active">
-                                    <td class="active">저작권</td>
-                                    <td class="active">
-                                        출처 : &nbsp;
-                                        <div data-example-id="static-dropdown">
-                                            <select id="selSource" class="form-control custom-scroll">
-                                                <option>관광청</option>
-                                                <option>작가</option>
-                                                <option>직원</option>
-                                                <option>랜드사</option>
-                                                <option>제휴사</option>
-                                                <option>기타</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="active">
-                                        상세명 : &nbsp;
-                                        <div data-example-id="static-dropdown">
-                                            <select id="selDetail" class="form-control custom-scroll">
-                                                <option>관광청 이름</option>
-                                                <option>작가 이름</option>
-                                                <option>직원 이름</option>
-                                                <option>랜드사 이름</option>
-                                                <option>제휴사 이름</option>
-                                                <option>정확히 표기</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="active" colspan="4">
-                                        유효기간 : &nbsp;
-                                        <div class="input-group">
-                                            <input class="form-control" placeholder="" id="txtExpiryDate" type="text" readonly="readonly" value="@DateTime.Now.ToIdDateType()">
-                                            <span class="input-group-addon" onclick="$('#txtExpiryDate').focus();">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        * 지역
-                                    </td>
-                                    <td class="active">
-                                        대륙 : &nbsp;
-                                        <div data-example-id="static-dropdown">
-                                            <select id="selContinent" class="form-control custom-scroll">
-                                                <option>아시아</option>
-                                                <option>동남아</option>
-                                                <option>대양주</option>
-                                                <option>미주</option>
-                                                <option>중남미</option>
-                                                <option>유럽</option>
-                                                <option>중동</option>
-                                                <option>아프리카</option>
-                                                <option>기타</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="active">
-                                        지역 : &nbsp;
-                                        <div data-example-id="static-dropdown">
-                                            <select id="selArea" class="form-control custom-scroll">
-                                                <option>서유럽</option>
-                                                <option>동유럽</option>
-                                                <option>북유럽</option>
-                                                <option>지중해</option>
-                                                <option>발칸</option>
-                                                <option>기타</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="active">
-                                        국가 : &nbsp;
-                                        <div data-example-id="static-dropdown">
-                                            <select id="selNation" class="form-control custom-scroll">
-                                                <option>영국</option>
-                                                <option>프랑스</option>
-                                                <option>이태리</option>
-                                                <option>스위스</option>
-                                                <option>스페인</option>
-                                                <option>네덜란드</option>
-                                                <option>벨기에</option>
-                                                <option>기타</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="active">
-                                        세부지역 : &nbsp;
-                                        <div data-example-id="static-dropdown">
-                                            <select id="selDetailsArea" class="form-control custom-scroll">
-                                                <option>기타</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td class="active" colspan="2">
-                                        도시 : &nbsp;
-                                        <div data-example-id="static-dropdown">
-                                            <select id="selCity" class="form-control custom-scroll">
-                                                <option>런던</option>
-                                                <option>옥스포드</option>
-                                                <option>윈저</option>
-                                                <option>코츠월드</option>
-                                                <option>기타</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        * 카테고리
-                                        (중복 선택 가능)
-                                    </td>
-                                    <td colspan="5">
-                                        <div class="checkbox" style="word-spacing:30px;">
-                                            <label>
-                                                <input id="chk_Attraction" type="checkbox" checked> 명소
-                                            </label>
-                                            <label>
-                                                <input id="chkLodging" type="checkbox"> 숙소
-                                            </label>
-                                            <label>
-                                                <input id="chkFamousRestaurant" type="checkbox"> 맛집
-                                            </label>
-                                            <label>
-                                                <input id="chkTraffic" type="checkbox"> 교통/패스
-                                            </label>
-                                            <label>
-                                                <input id="chkShopping" type="checkbox"> 쇼핑
-                                            </label>
-                                            <label>
-                                                <input id="chkOthersCategory" type="checkbox"> 기타
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        * 사진 구분
-                                        (중복 선택 가능)
-                                    </td>
-                                    <td colspan="5">
-                                        <div class="checkbox" style="word-spacing:30px;">
-                                            <label class="checkbox-inline">
-                                                <input id="chkPerson" type="checkbox"> 인물
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input id="chkView" type="checkbox"> 풍경
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input id="chkOthers" type="checkbox" checked> 건물
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input id="chkPlace" type="checkbox"> 장소
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input id="chkOthersPicture" type="checkbox"> 기타
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        *
-                                    </td>
-                                    <td colspan="5">
-                                        <div class="radio" style="word-spacing:30px;">
-                                            <label class="radio-inline">
-                                                <input id="rboSpring" name="rblSeason" type="radio" value="spring"> 봄
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="rboSummer" name="rblSeason" type="radio" value="summer"> 여름
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="rboAutumn" name="rblSeason" type="radio" value="autumn" checked> 가을
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="rboWinter" name="rblSeason" type="radio" value="winter"> 겨울
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="rboOthersSeason" name="rblSeason" type="radio" value="otherSeason"> 기타
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        * 시간
-                                    </td>
-                                    <td colspan="5">
-                                        <div class="radio" style="word-spacing:30px;">
-                                            <label class="radio-inline">
-                                                <input id="rboDawn" name="rblTime" type="radio" value="dawn"> 새벽
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="rboDay" name="rblTime" type="radio" value="day"> 낮
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="rboNightView" name="rblTime" type="radio" value="nightView" checked> 야경
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input id="rboOthersTime" name="rblTime" type="radio" value="otherTime"> 기타
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        촬영일
-                                    </td>
-                                    <td colspan="5">
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        * 사이즈
-                                    </td>
-                                    <td colspan="5"></td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        * 퀄리티
-                                    </td>
-                                    <td colspan="5">
-                                    </td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        * Tag
-                                    </td>
-                                    <td colspan="5"></td>
-                                </tr>
-                                <tr class="active">
-                                    <td>
-                                        등록정보
-                                    </td>
-                                    <td colspan="5"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="col-sm-4">
+                            <input type="text" name="keyword" class="form-control" placeholder="please popup keyword">
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="" class="col-form-label">Expiration Date:</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" id="txt_startDate" class="form-control" />
+                        </div>
+                        <div class="col-sm-1">
+                            ~
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" id="txt_endDate" class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-md-12">
+                        <div class="col-sm-1">
+                            <label for="" class="col-form-label">JoinMember:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <select id="sel_multiMember" multiple="multiple">
+                                @foreach (var member in ViewBag.Members)
+                                {
+                                    <option value="@member.memberNo">@member.memberName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <label for="" class="col-form-label">Popup Type:</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="custom-select " id="sel_imageSize" >
+                                <option value="A">All</option>
+                                <option value="D">Thumbnail</option>
+                                <option value="L">L</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </article>
+            </div>
         </div>
-    </section>
+    }
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">idx </th>
+                        <th scope="col">title </th>
+                        <th scope="col">Expiration Date</th>
+                        <th scope="col">Join Member</th>
+                        <th scope="col">Popup Type</th>
+                        <th scope="col">Descript</th>
+                        <th scope="col">RegDate</th>
+                        <th scope="col">RegUser</th>
+                        <th scope="col">ModDate</th>
+                        <th scope="col">ModUser</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@foreach (var image in Model)
+                        {
+                            <tr>
+
+                                <td class="table-light">
+                                    <div class="checkbox" style="word-spacing:30px;">
+                                        <label class="checkbox-inline">
+                                            <input name="chk_image" type="checkbox" value="@image.idx" title="@image.imageName" alt="@image.imagePath.Replace("D:\\","hasys.image.com\\")" />
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="table-light">
+
+                                    <a href="#" onclick='javascript:RendModalData(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(image) as String));' data-toggle="modal" data-target="#myModal">@image.imageName</a>
+                                </td>
+                                <td class="table-light">@image.imageSize</td>
+                                <td class="table-light">@image.imageKeyword</td>
+                                <td class="table-light">@image.regDate</td>
+                                <td class="table-light">@image.regUser</td>
+                                <td class="table-light">@image.modDate</td>
+                                <td class="table-light">@image.modUser</td>
+                                <td class="table-light">
+                                    <a href="#" onclick='javascript: RendImage("@Url.Action("GetImage", new { idx = @image.idx })");'>
+                                        <img src="@Url.Action("GetImage", new { idx = @image.idx })" style="width: 100px;" alt="imagePreview" class="img-responsive center-block" />
+                                    </a>
+                                </td>
+                            </tr>
+                        }*@
+                </tbody>
+            </table>
+            <div class="text-center">
+                <form method="post" id="form_addPopup" action='/Popup/PopupUpdate'>
+                    <input type="hidden" name="ImageLinks" id="hid_imageLink" />
+                </form>
+                <div class="col-md-12" style="float:right">
+                    <input type="button" class="btn btn-primary pull-right" value="UpdatePopup" onclick="javascript: AddPopupImage();">
+                    <input type="button" class="btn btn-primary pull-right" value="Delete" onclick="javascript: DeleteImage();">
+                </div>
+                <ul class="pagination">
+                    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                        @Html.PagedListPager(Model, page => Url.Action("PopupList", new { page }))*@
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Image Update</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="hid_idx" />
+                    <div class="form-group">
+                        <label for="txt_imageName" class="col-form-label">ImageName:</label>
+                        <input type="text" class="form-control" id="txt_imageName" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel_imageSize" class="col-form-label">ImageSize:</label>
+                        <select class="custom-select" id="sel_imageSize">
+                            <option value="N">Normal</option>
+                            <option value="T">Thumbnail</option>
+                            <option value="B">Big</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_imageKeywod" class="col-form-label">ImageKeywod:</label>
+                        <input type="text" class="form-control" id="txt_imageKeywod">
+                    </div>
+                    <div class="form-group">
+                        <label for="sel_useYn" class="col-form-label">UseYN:</label>
+                        <select class="custom-select" id="sel_useYn">
+                            <option value="Y">Y</option>
+                            <option value="N">N</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">RegDate:</label>
+                        <input type="text" class="form-control" id="txt_regDate" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">RegUser:</label>
+                        <input type="text" class="form-control" id="txt_regUser" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">ModDate:</label>
+                        <input type="text" class="form-control" id="txt_modDate" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">ModUser:</label>
+                        <input type="text" class="form-control" id="txt_modUser" disabled>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript: ImageUpdate();">Update</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
+    .modal-backdrop {
+        z-index: 1050;
+    }
+
+    .modal {
+        z-index: 1060;
+    }
+
     .ui-autocomplete {
         z-index: 9999 !important;
         max-height: 300px;
@@ -294,11 +214,26 @@
         overflow-x: hidden;
     }
 </style>
+<script>
 
-<script type="text/javascript">
-    $('#txtExpiryDate').datepicker({
-        dateFormat: 'dd-mm-yy',
+    $(document).ready(function () {
+        $('#sel_multiMember').multiselect({
+            buttonWidth: '350px',
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select an Option'
+        });
+    });
+
+    $('#txt_endDate').datepicker({
+        dateFormat: 'yy-mm-dd',
+        prevText: '<i class="fa fa-chevron-left"></i>',
+        nextText: '<i class="fa fa-chevron-right"></i>'
+    });
+
+    $('#txt_startDate').datepicker({
+        dateFormat: 'yy-mm-dd',
         prevText: '<i class="fa fa-chevron-left"></i>',
         nextText: '<i class="fa fa-chevron-right"></i>',
     });
+
 </script>

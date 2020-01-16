@@ -75,13 +75,13 @@
                     <tr>
                         <th scope="row" class="table-dark"> Html </th>
                         <td class="table-light" colspan="2">
-                            <textarea class="form-control rounded-0" id="tarea_popupHtml" rows="10"></textarea>
+                            <textarea class="form-control rounded-0" id="tarea_popupHtml" rows="10" placeholder="<html></html>"></textarea>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row" class="table-dark"> Script </th>
                         <td class="table-light" colspan="2">
-                            <textarea class="form-control rounded-0" id="tarea_popupScript" rows="10"></textarea>
+                            <textarea class="form-control rounded-0" id="tarea_popupScript" rows="10" placeholder="<script></script>"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -147,6 +147,7 @@
         nextText: '<i class="fa fa-chevron-right"></i>',
     });
 
+    //이미지 파일 서버 업로드 
     function UploadImage() {
         var form = $('#form_file')[0];
         var formData = new FormData(form);
@@ -155,6 +156,7 @@
         GetImageAddPath(formData);
     }
 
+    //이미지 파일 서버 업로드 프로세스 
     function GetImageAddPath(formData) {
         $.ajax({
             url: '@Url.Action("GetImageAddPath", "Image")',
@@ -175,16 +177,45 @@
         });
     }
 
+    // 팝업 저장 유효성 검사 
+    function VaildationPopupParam() {
+        if ($('#txt_popupTitle').val() == '') {
+            alert("Please enter Title");
+            $('#txt_popupTitle').focus();
+            return true;
+        }
+
+        if ($('#txt_startDate').val() == '' || $('#txt_endDate').val() == '') {
+            alert("Please enter Expiration Date.");
+            $('#txt_startDate').focus();
+            return true;
+        }
+
+        if ($('#sel_multiMember').val() == null) {
+            alert("Please select JoinMember");
+            $('#sel_multiMember').focus();
+            return true;
+        }
+
+        if ($('#tarea_popupHtml').val() == '') {
+            alert("Please enter Html");
+            $('#tarea_popupHtml').focus();
+            return true;
+        }
+    }
+
+    // 팝업 저장 파라메터 설정
     function MakePopupParam() {
 
         var joinMembers = $('#sel_multiMember').val();
         var joinMember = '';
 
-        if (joinMembers.length > 0) {
+        if (joinMembers != null) {
             for (var i = 0; i < joinMembers.length; i++)
             {
-                joinMember += joinMembers[i];
+                joinMember += ('|'+joinMembers[i]);
             }
+            joinMember = joinMember.substr(1, joinMember.length);
         }
 
         var data = {
@@ -194,15 +225,18 @@
             , joinMember: joinMember
             , popupType:$("input[name='rbl_popupType']:checked").val()
             , descript: $('#txt_descript').val()
-            , popupHtml: $('#tarea_popupHtml').val()
-            , popupScript: $('#tarea_popupScript').val()
+            , popupHtml: encodeURIComponent($('#tarea_popupHtml').val())
+            , popupScript: encodeURIComponent($('#tarea_popupScript').val())
         }
 
         return data;
     }
 
+    //팝업 저장 프로세스 
     function PopupAdd() {
-
+        // 유효성 검사 
+        if (VaildationPopupParam()) return;
+        
         $.ajax({
             url: '/Popup/PopUpAddProc',
             type: 'POST',
@@ -210,16 +244,18 @@
                 jsonData : JSON.stringify(MakePopupParam())
             },
             dataType:"json",
-            success: function (data) {
-                if (result.data > 0) alert('Popup data added complete');
+            success: function (result) {
+                if (result.data > 0) {
+                    alert('Popup data added complete');
+                    location.reload();
+                }
                 else alert('Popup data added fail.');
-
-                location.reload();
             },
             error : function(xhr, status) {
                 alert(xhr + " : " + status);
             }
         });
+        
     }
 
 </script>
