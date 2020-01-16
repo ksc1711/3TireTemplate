@@ -13,16 +13,17 @@ namespace WCMS.Web.Controllers
 {
     public class ImageController : BaseController
     {
-        private int _pageSize = 5;
+        private int _pageSize = 10;
         private string _defaultPath = "D:/images/default.png";
 
         private readonly BizImage _bizImage = new BizImage();
         
+        // 이미지 정보 업데이트 
         [HttpPost]
         public JsonResult ImageUpdate(string jsonData)
         {
             string memberId = HttpContext.Session["USER_NAME"].ToString();
-
+            int result = 0;
             try
             {
                 var settings = Settings.newtonsoftSetting();
@@ -31,9 +32,8 @@ namespace WCMS.Web.Controllers
                 if (!string.IsNullOrEmpty(jsonData))
                 {
                     imageData = Newtonsoft.Json.JsonConvert.DeserializeObject<ImageData>(jsonData, settings);
+                    result = _bizImage.UpdateImageData(imageData, memberId);
                 }
-
-                int result = _bizImage.UpdateImageData(imageData, memberId);
 
                 return Json(new { data = result }, JsonRequestBehavior.AllowGet);
             }
@@ -43,7 +43,36 @@ namespace WCMS.Web.Controllers
             }
         }
 
-        
+        // 이미지 삭제
+        [HttpPost]
+        public JsonResult ImageDelete(string jsonData)
+        {
+            string memberId = HttpContext.Session["USER_NAME"].ToString();
+            int result = 0;
+            
+            try
+            {
+                var settings = Settings.newtonsoftSetting();
+
+                if (!string.IsNullOrEmpty(jsonData))
+                {
+                    string[] idxs = jsonData.Split('|');
+
+                    foreach(var idx in idxs)
+                    {
+                        result += _bizImage.DeleteImageData(Convert.ToInt32(idx), memberId);
+                    }
+                }
+                
+                return Json(new { data = result }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // 등록된 이미지 미리보기 
         public ActionResult GetImage(int idx)
         {
             string path = string.Empty;
@@ -63,6 +92,7 @@ namespace WCMS.Web.Controllers
             return new FileStreamResult(stream, "image/png");
         }
 
+        // 이미지 리스트 페이지 
         public ActionResult ImageSerachList(int? page, string keyword = "")
         {
             if (!LoginCheckBool()) return RedirectToAction("Login", "Account");
@@ -74,6 +104,7 @@ namespace WCMS.Web.Controllers
             return View(imageDatas.ToPagedList(pageNo, _pageSize));
         }
 
+        // 이미지 등록 페이지 로딩 
         public ActionResult ImageAdd()
         {
 
@@ -124,7 +155,7 @@ namespace WCMS.Web.Controllers
             return View();
         }
 
-
+        // 팝업 등록시 이미지 등록하여 데이터 저장 
         [HttpPost]
         public JsonResult GetImageAddPath(HttpPostedFileBase fileInfo)
         {

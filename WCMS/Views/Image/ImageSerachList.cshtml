@@ -20,10 +20,10 @@
                 <br />
                 <div class="row text-center">
                     <div class="col-md-12">
-                        <div class="col-sm-10">
+                        <div class="col-sm-11">
                             <input type="text" name="keyword" class="form-control" placeholder="please image keword">
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-1">
                             <input type="submit" class="btn btn-primary pull-right" value="Search">
                         </div>
                     </div>
@@ -37,7 +37,7 @@
             <table class="table table table-bordered">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col" style="display:none;">idx </th>
+                        <th scope="col">idx </th>
                         <th scope="col">imageName </th>
                         <th scope="col">imageSize</th>
                         <th scope="col">imageKeyWord</th>
@@ -52,10 +52,17 @@
                     @foreach (var image in Model)
                     {
                         <tr>
-                            <td class="table-light" style="display:none;">@image.idx</td>
+
                             <td class="table-light">
-                                
-                                <a href="#" onclick='javascript:rendModalData(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(image) as String));' data-toggle="modal" data-target="#myModal">@image.imageName</a>
+                                <div class="checkbox" style="word-spacing:30px;">
+                                    <label class="checkbox-inline">
+                                        <input name="chk_image" type="checkbox" value="@image.idx" title="@image.imageName" alt="@image.imagePath.Replace("D:\\","hasys.image.com\\")"/>
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="table-light">
+
+                                <a href="#" onclick='javascript:RendModalData(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(image) as String));' data-toggle="modal" data-target="#myModal">@image.imageName</a>
                             </td>
                             <td class="table-light">@image.imageSize</td>
                             <td class="table-light">@image.imageKeyword</td>
@@ -64,7 +71,7 @@
                             <td class="table-light">@image.modDate</td>
                             <td class="table-light">@image.modUser</td>
                             <td class="table-light">
-                                <a href="#" onclick='javascript: rendImage("@Url.Action("GetImage", new { idx = @image.idx })");'>
+                                <a href="#" onclick='javascript: RendImage("@Url.Action("GetImage", new { idx = @image.idx })");'>
                                     <img src="@Url.Action("GetImage", new { idx = @image.idx })" style="width: 100px;" alt="imagePreview" class="img-responsive center-block" />
                                 </a>
                             </td>
@@ -73,6 +80,13 @@
                 </tbody>
             </table>
             <div class="text-center">
+                <form method="post" id="form_addPopup" action='/Popup/PopUpAdd'>
+                    <input type="hidden" name="ImageLinks" id="hid_imageLink"/>
+                </form>
+                <div class="col-md-12" style="float:right">
+                        <input type="button" class="btn btn-primary pull-right" value="AddPopup" onclick="javascript: AddPopupImage();"> 
+                        <input type="button" class="btn btn-primary pull-right" value="Delete" onclick="javascript: DeleteImage();">
+                </div>
                 <ul class="pagination">
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
                     @Html.PagedListPager(Model, page => Url.Action("ImageSerachList", new { page }))
@@ -135,7 +149,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript: imageUpdate();">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript: ImageUpdate();">Update</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -144,11 +158,13 @@
 
 
 <script>
-    function rendImage(name) {
+    // 이미지 클릭시 미리보기 제공
+    function RendImage(name) {
         $("#img_preview").attr("src", name);
     }
 
-    function rendModalData(data) {
+    // 이미지 명 클릭시 모달에 보여줄 데이터 저장
+    function RendModalData(data) {
         //var result = JSON.parse(data);
         $('#hid_idx').val(data.idx);
         $('#txt_imageName').val(data.imageName);
@@ -160,7 +176,8 @@
         $('#txt_modUser').val(data.modUser);
     }
 
-    function makeUpdateData() {
+    //모달에서 데이터 수정 시 수정할 데이터 저장 
+    function MakeUpdateData() {
         var data = {
             idx: $('#hid_idx').val()
             , imageSize: $('#sel_imageSize').val()
@@ -171,18 +188,86 @@
         return data;
     }
 
-    function imageUpdate() {
+    // 모달에서 데이터 수정 프로세스 
+    function ImageUpdate() {
         $.ajax({
             url: "/Image/ImageUpdate",
             type: "POST",
             dataType: "json",
             data: {
-                jsonData: JSON.stringify(makeUpdateData())
+                jsonData: JSON.stringify(MakeUpdateData())
             },
             async: false,
             success: function (result) {
                 if (result.data > 0) alert('image data update sucess.');
                 else alert('There is no updateable data.');
+
+                location.reload();
+            },
+            error: function (a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
+            }
+        });
+    }
+
+    //체크된 데이터 가져오기 
+    function CheckImageData(type) {
+        var checkImageData = "";
+
+        $('input:checkbox[name="chk_image"]').each(function () {
+            if (this.checked) {
+                if (type == "D") checkImageData += ('|' + this.value);
+                else checkImageData += ('|' + (this.alt+ this.title));
+            }
+        });
+
+        var strLength = checkImageData.length;
+
+        if (strLength > 1) {
+            checkImageData = checkImageData.substr(1, strLength);
+        }
+
+        return checkImageData;
+        
+    }
+
+    // 이미지 체크박스 선택 후 버튼 클릭시 해당 이미지 idx 넘김 
+    function AddPopupImage() {
+        var checkData = CheckImageData("A");
+
+        if (checkData == "") {
+            alert("Not selected.");
+            return;
+        }
+
+        $('#hid_imageLink').val(checkData);
+
+        $('#form_addPopup')[0].submit();
+
+    }
+
+    // 선택 이미지 삭제 
+    function DeleteImage() {
+        var checkData = CheckImageData("D");
+
+        if (checkData == "") {
+            alert("Not selected.");
+            return;
+        }
+
+         $.ajax({
+            url: "/Image/ImageDelete",
+            type: "POST",
+            dataType: "json",
+            data: {
+                jsonData: checkData
+            },
+            async: false,
+            success: function (result) {
+                if (result.data > 0) alert('image data delete sucess.');
+                else alert('There is no data to delete.');
 
                 location.reload();
             },

@@ -103,8 +103,7 @@ namespace WCMS.DAC
             {
                 using (IDbConnection dbConnection = this.Connection)
                 {
-                    int a = dbConnection.Query<int>("uspSet_Image_Update", queryParam, commandType: CommandType.StoredProcedure).First();
-                    return a;// dbConnection.Query<int>("uspSet_Image_Update", queryParam, commandType: CommandType.StoredProcedure).First();
+                    return dbConnection.Query<int>("uspSet_Image_Update", queryParam, commandType: CommandType.StoredProcedure).First(); ;
                 }
             }
             catch (SqlException ex)
@@ -115,6 +114,26 @@ namespace WCMS.DAC
             finally
             {
                 this.Connection.Close();
+            }
+        }
+
+        public int DeleteImageData(int idx, string memberId)
+        {
+            DynamicParameters queryParam = new DynamicParameters();
+            queryParam.Add("@idx", idx, DbType.Int32);
+            queryParam.Add("@memberId", memberId, DbType.String);
+
+            try
+            {
+                using (IDbConnection dbConnection = this.Connection)
+                {
+                    return dbConnection.Query<int>("uspSet_Image_Delete", queryParam, commandType: CommandType.StoredProcedure).First();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+
             }
         }
     }

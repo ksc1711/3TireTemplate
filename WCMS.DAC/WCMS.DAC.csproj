@@ -55,6 +55,7 @@
     <Compile Include="DacContent.cs" />
     <Compile Include="DacImage.cs" />
     <Compile Include="DacMember.cs" />
+    <Compile Include="DacPopup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

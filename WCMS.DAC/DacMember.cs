@@ -15,6 +15,7 @@ namespace WCMS.DAC
             this.Connection = new SqlConnection(connectionString);
         }
 
+        // 로그인 
         public MemberData GetLoginData(string memberId, string memberPw)
         {
             DynamicParameters queryParam = new DynamicParameters();
@@ -42,6 +43,7 @@ namespace WCMS.DAC
             }
         }
 
+        //회원가입
         public string SetSignUp(string memberId, string memberPw, string memberName, string memberPhone)
         {
             DynamicParameters queryParam = new DynamicParameters();
@@ -68,5 +70,30 @@ namespace WCMS.DAC
             }
         }
 
+        // 회원 전체 조회
+        public List<MemberData> GetLoginList(string depatment)
+        {
+            DynamicParameters queryParam = new DynamicParameters();
+            queryParam.Add("@departmentCode", depatment, DbType.String);
+
+            try
+            {
+                using (IDbConnection dbConnection = this.Connection)
+                {
+                    List<MemberData> memberDatas = dbConnection.Query<MemberData>("uspGet_Member_List", queryParam, commandType: CommandType.StoredProcedure).ToList();
+                    return memberDatas;
+
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+            finally
+            {
+                this.Connection.Close();
+            }
+        }
     }
 }

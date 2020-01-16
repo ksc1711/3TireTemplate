@@ -1,14 +1,15 @@
 ﻿@using WCMS.Web;
-@{
-    ViewBag.Title = "PopupAdd";
-}
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
-   
+@using WCMS.Data;
+
+@model List<WCMS.Data.MemberData>
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+
 
 <div id="content" class="container">
-        <br />
+    <br />
 
     <div class="row">
         <div class="col-md-12">
@@ -37,19 +38,32 @@
                             <input type="text" id="txt_startDate" class="form-control" />
                         </td>
                         <td class="table-light">
-                            StartDate :
+                            EndDate :
                             <input type="text" id="txt_endDate" class="form-control" />
                         </td>
                     </tr>
                     <tr>
                         <th scope="row" class="table-dark"> Join Member </th>
                         <td class="table-light" colspan="2">
-                            <select id="sel_multiMember" multiple="multiple" >
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                                <option value="4">Option 4</option>
+                            <select id="sel_multiMember" multiple="multiple">
+                                @foreach (var member in Model)
+                                                    {
+                                    <option value="@member.memberNo">@member.memberName</option>
+                                }
                             </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="table-dark"> Popup Type </th>
+                        <td class="table-light" colspan="2">
+                            <div class="radio" style="word-spacing:30px;">
+                                <label class="radio-inline">
+                                    <input id="rbo_default" name="rbl_popupType" type="radio" value="D" checked> DefaultPopup
+                                </label>
+                                <label class="radio-inline">
+                                    <input id="rbo_layer" name="rbl_popupType" type="radio" value="L"> LayerPopup
+                                </label>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -78,20 +92,24 @@
                             </form>
                         </td>
                         <td class="table-light">
-                            <input type="button" class="btn btn-primary pull-right" value="Upload" onclick="javascript:uploadImage();">
+                            <input type="button" class="btn btn-primary pull-right" value="Upload" onclick="javascript:UploadImage();">
                         </td>
                     </tr>
                     <tr>
                         <td class="table-light" colspan="2">
                             <ul class="list-group" id="ul_filePaths">
-                            </ul>
+                                @foreach (string imageLink in ViewBag.ImageLinks)
+                                {
+                                    <li class='list-group-item'>@imageLink </li>
+                                }
+                                </ul>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="row">
                 <div class="col-md-12">
-                    <input type="submit" class="btn btn-primary pull-right" value="Poup Add">
+                    <input type="button" class="btn btn-primary pull-right" value="Poup Add" onclick="javascript: PopupAdd();">
                 </div>
             </div>
         </div>
@@ -106,8 +124,6 @@
         /* prevent horizontal scrollbar */
         overflow-x: hidden;
     }
-
-
 </style>
 
 <script type="text/javascript">
@@ -131,7 +147,7 @@
         nextText: '<i class="fa fa-chevron-right"></i>',
     });
 
-    function uploadImage() {
+    function UploadImage() {
         var form = $('#form_file')[0];
         var formData = new FormData(form);
         formData.append("fileInfo", $("#fileInfo")[0].files[0]);
@@ -158,4 +174,52 @@
             }
         });
     }
+
+    function MakePopupParam() {
+
+        var joinMembers = $('#sel_multiMember').val();
+        var joinMember = '';
+
+        if (joinMembers.length > 0) {
+            for (var i = 0; i < joinMembers.length; i++)
+            {
+                joinMember += joinMembers[i];
+            }
+        }
+
+        var data = {
+            title: $('#txt_popupTitle').val()
+            , startDate: $('#txt_startDate').val()
+            , endDate: $('#txt_endDate').val()
+            , joinMember: joinMember
+            , popupType:$("input[name='rbl_popupType']:checked").val()
+            , descript: $('#txt_descript').val()
+            , popupHtml: $('#tarea_popupHtml').val()
+            , popupScript: $('#tarea_popupScript').val()
+        }
+
+        return data;
+    }
+
+    function PopupAdd() {
+
+        $.ajax({
+            url: '/Popup/PopUpAddProc',
+            type: 'POST',
+            data: {
+                jsonData : JSON.stringify(MakePopupParam())
+            },
+            dataType:"json",
+            success: function (data) {
+                if (result.data > 0) alert('Popup data added complete');
+                else alert('Popup data added fail.');
+
+                location.reload();
+            },
+            error : function(xhr, status) {
+                alert(xhr + " : " + status);
+            }
+        });
+    }
+
 </script>

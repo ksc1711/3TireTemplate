@@ -45,6 +45,7 @@
     <Compile Include="BizCotent.cs" />
     <Compile Include="BizImage.cs" />
     <Compile Include="BizMember.cs" />
+    <Compile Include="BizPopup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

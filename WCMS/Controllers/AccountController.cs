@@ -32,7 +32,6 @@ namespace WCMS.Web.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -57,7 +56,6 @@ namespace WCMS.Web.Controllers
             // 이 경우 오류가 발생한 것이므로 폼을 다시 표시하십시오.
         }
 
-        //
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
