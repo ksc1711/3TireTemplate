@@ -7,10 +7,9 @@ namespace WCMS.Bussiness
 {
     public class BizCommon
     {
-        public CommonCodeData GetCommonData(string commonCode)
+        public List<CommonCodeData> GetCommonCodeData(string commonCode)
         {
-            return null;
-            //return new DacImage(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetCommonData(commonCode);
+            return new DacCommon(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetCommonCodeData(commonCode);
         }
     }
 }

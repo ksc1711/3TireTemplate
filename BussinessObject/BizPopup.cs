@@ -11,5 +11,15 @@ namespace WCMS.Bussiness
         {
             return new DacPopup(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).SetPopupData(popupData, memberId);
         }
+
+        public List<PopupData> GetPopupList()
+        {
+            return new DacPopup(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetPopupList();
+        }
+
+        public List<PopupData> GetPopupList(PopupData popupData)
+        {
+            return new DacPopup(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString).GetPopupList(popupData);
+        }
     }
 }

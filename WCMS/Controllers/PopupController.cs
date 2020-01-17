@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PagedList;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using WCMS.Bussiness;
 using WCMS.Data;
@@ -8,21 +10,53 @@ namespace WCMS.Web.Controllers
 
     public class PopupController : BaseController
     {
+        private int _pageSize = 10;
+
         private readonly BizMember _bizMember = new BizMember();
         private readonly BizPopup _bizPopup = new BizPopup();
+        private readonly BizCommon _bizCommon = new BizCommon();
 
         // GET: Popup
-        public ActionResult PopUpList()
+        public ActionResult PopUpList(int? page)
         {
             if (!LoginCheckBool()) return RedirectToAction("Login", "Account");
 
+            // 참여 인원 데이터 
             var members = _bizMember.GetLoginList("SDT");
-
             ViewBag.Members = members;
 
-            return View();
+            // 팝업 타입 데이터 
+            var commonCodes = _bizCommon.GetCommonCodeData("104");
+            ViewBag.PopupTypes = commonCodes;
+
+            // 팝업 리스트
+            List<PopupData> popupDatas = _bizPopup.GetPopupList();
+
+            int pageNo = (page ?? 1);
+
+            return View(popupDatas.ToPagedList(pageNo, _pageSize));
         }
 
+        [HttpPost]
+        public ActionResult PopUpList(int? page, PopupData popupData)
+        {
+            if (!LoginCheckBool()) return RedirectToAction("Login", "Account");
+
+            // 참여 인원 데이터 
+            var members = _bizMember.GetLoginList("SDT");
+            ViewBag.Members = members;
+
+            // 팝업 타입 데이터 
+            var commonCodes = _bizCommon.GetCommonCodeData("104");
+            ViewBag.PopupTypes = commonCodes;
+
+            int pageNo = (page ?? 1);
+
+            // 팝업 리스트
+            List<PopupData> popupDatas = _bizPopup.GetPopupList(popupData);
+
+            return View(popupDatas.ToPagedList(pageNo, _pageSize));
+        }
         [HttpGet]
         public ActionResult PopUpAdd()
         {

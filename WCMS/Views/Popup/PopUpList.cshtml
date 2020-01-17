@@ -12,65 +12,94 @@
 <title>Image Searh List</title>
 
 <div class="container">
-    @using (Html.BeginForm("PopupList",
-                        "Popup",
-                        FormMethod.Post,
-                        new { enctype = "multipart/form-data" }))
-    {
         <br />
-
         <div class="row">
             <div class="col-md-12">
                 <div class="row text-center">
-                    <div class="col-md-12">
-                        <div class="col-sm-1">
-                            <label for="" class="col-form-label">Keyword:</label>
+                    @using (Html.BeginForm("PopupList",
+                        "Popup",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="col-md-12">
+                            <div class="col-sm-1">
+                                <label for="" class="col-form-label">Keyword:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" name="title" class="form-control" placeholder="please popup keyword">
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="" class="col-form-label">Expiration Date:</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" id="txt_startDate" name="startDate" class="form-control" />
+                            </div>
+                            <div class="col-sm-1">
+                                ~
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text" id="txt_endDate" name="endDate" class="form-control" />
+                            </div>
                         </div>
-                        <div class="col-sm-4">
-                            <input type="text" name="keyword" class="form-control" placeholder="please popup keyword">
+                        <br />
+                        <br />
+                        <div class="col-md-12">
+                            <div class="col-sm-1">
+                                <label for="" class="col-form-label">JoinMember:</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="custom-select " id="sel_joinMember" name="joinMember">
+                                    <option value="">All</option>
+                                    @if (ViewBag.Members != null)
+                                    {
+                                        foreach (var member in ViewBag.Members)
+                                        {
+
+                                            <option value="@member.memberNo">@member.memberName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="" class="col-form-label">Popup Type:</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select class="custom-select " id="sel_popupType" name="popupType">
+                                    @if (ViewBag.Members != null)
+                                    {
+                                        foreach (var popupType in ViewBag.PopupTypes)
+                                        {
+                                            <option value="@popupType.code">@popupType.codeName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <label for="" class="col-form-label">Expiration Date:</label>
+                        <div class="col-md-12">
+                            <div class="col-sm-2">
+                                <label for="" class="col-form-label">RegUser:</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" name="regUser" class="form-control" placeholder="please enter userId.">
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="" class="col-form-label"> PopupNo:</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" name="idxr" class="form-control" placeholder="please enter PopupNo.">
+                            </div>
+                            <div class="col-sm-1">
+                                
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="submit" class="btn btn-primary pull-right" value="Search">
+                            </div>
                         </div>
-                        <div class="col-sm-2">
-                            <input type="text" id="txt_startDate" class="form-control" />
-                        </div>
-                        <div class="col-sm-1">
-                            ~
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" id="txt_endDate" class="form-control" />
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <div class="col-md-12">
-                        <div class="col-sm-1">
-                            <label for="" class="col-form-label">JoinMember:</label>
-                        </div>
-                        <div class="col-sm-4">
-                            <select id="sel_multiMember" multiple="multiple">
-                                @foreach (var member in ViewBag.Members)
-                                {
-                                    <option value="@member.memberNo">@member.memberName</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-sm-2">
-                            <label for="" class="col-form-label">Popup Type:</label>
-                        </div>
-                        <div class="col-sm-2">
-                            <select class="custom-select " id="sel_imageSize" >
-                                <option value="A">All</option>
-                                <option value="D">Thumbnail</option>
-                                <option value="L">L</option>
-                            </select>
-                        </div>
+                        }
                     </div>
                 </div>
-            </div>
         </div>
-    }
+    
     <br />
     <div class="row">
         <div class="col-md-12">
@@ -80,57 +109,49 @@
                         <th scope="col">idx </th>
                         <th scope="col">title </th>
                         <th scope="col">Expiration Date</th>
-                        <th scope="col">Join Member</th>
                         <th scope="col">Popup Type</th>
                         <th scope="col">Descript</th>
                         <th scope="col">RegDate</th>
                         <th scope="col">RegUser</th>
                         <th scope="col">ModDate</th>
                         <th scope="col">ModUser</th>
+                        <th scope="col">Preview</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @*@foreach (var image in Model)
+                    @foreach (var popup in Model)
                         {
-                            <tr>
+                    <tr>
 
-                                <td class="table-light">
-                                    <div class="checkbox" style="word-spacing:30px;">
-                                        <label class="checkbox-inline">
-                                            <input name="chk_image" type="checkbox" value="@image.idx" title="@image.imageName" alt="@image.imagePath.Replace("D:\\","hasys.image.com\\")" />
-                                        </label>
-                                    </div>
-                                </td>
-                                <td class="table-light">
-
-                                    <a href="#" onclick='javascript:RendModalData(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(image) as String));' data-toggle="modal" data-target="#myModal">@image.imageName</a>
-                                </td>
-                                <td class="table-light">@image.imageSize</td>
-                                <td class="table-light">@image.imageKeyword</td>
-                                <td class="table-light">@image.regDate</td>
-                                <td class="table-light">@image.regUser</td>
-                                <td class="table-light">@image.modDate</td>
-                                <td class="table-light">@image.modUser</td>
-                                <td class="table-light">
-                                    <a href="#" onclick='javascript: RendImage("@Url.Action("GetImage", new { idx = @image.idx })");'>
-                                        <img src="@Url.Action("GetImage", new { idx = @image.idx })" style="width: 100px;" alt="imagePreview" class="img-responsive center-block" />
-                                    </a>
-                                </td>
-                            </tr>
-                        }*@
+                        <td class="table-light">
+                            <div class="checkbox" style="word-spacing:30px;">
+                                <label class="checkbox-inline">
+                                    <input name="chk_image" type="checkbox" value="@popup.idx" />
+                                </label>
+                            </div>
+                        </td>
+                        <td class="table-light">@popup.title</td>
+                        <td class="table-light">@popup.startDate ~ @popup.endDate</td>
+                        <td class="table-light">@popup.popupType</td>
+                        <td class="table-light">@popup.descript</td>
+                        <td class="table-light">@popup.regDate</td>
+                        <td class="table-light">@popup.regUser</td>
+                        <td class="table-light">@popup.modDate</td>
+                        <td class="table-light">@popup.modUser</td>
+                        <td class="table-light">
+                        </td>
+                    </tr>
+                        }
                 </tbody>
             </table>
             <div class="text-center">
-                <form method="post" id="form_addPopup" action='/Popup/PopupUpdate'>
-                    <input type="hidden" name="ImageLinks" id="hid_imageLink" />
-                </form>
                 <div class="col-md-12" style="float:right">
                     <input type="button" class="btn btn-primary pull-right" value="UpdatePopup" onclick="javascript: AddPopupImage();">
                     <input type="button" class="btn btn-primary pull-right" value="Delete" onclick="javascript: DeleteImage();">
                 </div>
                 <ul class="pagination">
-                    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-                        @Html.PagedListPager(Model, page => Url.Action("PopupList", new { page }))*@
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+                        @Html.PagedListPager(Model, page => Url.Action("PopupList", new { page }))
                 </ul>
             </div>
         </div>
@@ -151,14 +172,6 @@
                     <div class="form-group">
                         <label for="txt_imageName" class="col-form-label">ImageName:</label>
                         <input type="text" class="form-control" id="txt_imageName" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="sel_imageSize" class="col-form-label">ImageSize:</label>
-                        <select class="custom-select" id="sel_imageSize">
-                            <option value="N">Normal</option>
-                            <option value="T">Thumbnail</option>
-                            <option value="B">Big</option>
-                        </select>
                     </div>
                     <div class="form-group">
                         <label for="txt_imageKeywod" class="col-form-label">ImageKeywod:</label>
@@ -190,7 +203,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript: ImageUpdate();">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -235,5 +248,13 @@
         prevText: '<i class="fa fa-chevron-left"></i>',
         nextText: '<i class="fa fa-chevron-right"></i>',
     });
+
+    function VaildationSeachPopup() {
+
+    }
+
+    function SearchPopup() {
+
+    }
 
 </script>

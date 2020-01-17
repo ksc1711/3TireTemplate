@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DacBase.cs" />
-    <Compile Include="DacContent.cs" />
+    <Compile Include="DacCommon.cs" />
     <Compile Include="DacImage.cs" />
     <Compile Include="DacMember.cs" />
     <Compile Include="DacPopup.cs" />
