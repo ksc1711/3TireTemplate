@@ -170,3 +170,4 @@ D:\source\3TireTemplate\WCMS\bin\PagedList.dll
 D:\source\3TireTemplate\WCMS\bin\PagedList.Mvc.dll
 D:\source\3TireTemplate\WCMS\bin\PagedList.xml
 D:\source\3TireTemplate\WCMS\bin\PagedList.Mvc.xml
+D:\source\3TireTemplate\WCMS\bin\NLog.config
