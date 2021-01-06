@@ -23,3 +23,4 @@ D:\source\3TireTemplate\WCMS.DAC\bin\Debug\Dapper.dll
 D:\source\3TireTemplate\WCMS.DAC\bin\Debug\NLog.config
 D:\source\3TireTemplate\WCMS.DAC\bin\Debug\NLog.dll
 D:\source\3TireTemplate\WCMS.DAC\bin\Debug\NLog.xml
+D:\source\3TireTemplate\WCMS.DAC\obj\Debug\WCMS.DAC.csproj.CoreCompileInputs.cache

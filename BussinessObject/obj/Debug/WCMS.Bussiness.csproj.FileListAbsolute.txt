@@ -25,3 +25,4 @@ D:\source\3TireTemplate\BussinessObject\obj\Debug\BussinessObject.pdb
 D:\source\3TireTemplate\BussinessObject\bin\Debug\Dapper.dll
 D:\source\3TireTemplate\BussinessObject\bin\Debug\Dapper.xml
 D:\source\3TireTemplate\BussinessObject\bin\Debug\NLog.config
+D:\source\3TireTemplate\BussinessObject\obj\Debug\WCMS.Bussiness.csproj.CoreCompileInputs.cache

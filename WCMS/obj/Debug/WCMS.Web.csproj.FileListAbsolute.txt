@@ -88,8 +88,6 @@ D:\source\3TireTemplate\WCMS\bin\WCMS.Web.dll
 D:\source\3TireTemplate\WCMS\bin\WCMS.Web.pdb
 D:\source\3TireTemplate\WCMS\bin\Antlr3.Runtime.dll
 D:\source\3TireTemplate\WCMS\bin\BussinessObject.dll
-D:\source\3TireTemplate\WCMS\bin\EntityFramework.dll
-D:\source\3TireTemplate\WCMS\bin\EntityFramework.SqlServer.dll
 D:\source\3TireTemplate\WCMS\bin\Microsoft.AspNet.Identity.Core.dll
 D:\source\3TireTemplate\WCMS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\source\3TireTemplate\WCMS\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -171,3 +169,4 @@ D:\source\3TireTemplate\WCMS\bin\PagedList.Mvc.dll
 D:\source\3TireTemplate\WCMS\bin\PagedList.xml
 D:\source\3TireTemplate\WCMS\bin\PagedList.Mvc.xml
 D:\source\3TireTemplate\WCMS\bin\NLog.config
+D:\source\3TireTemplate\WCMS\obj\Debug\WCMS.Web.csproj.CoreCompileInputs.cache
